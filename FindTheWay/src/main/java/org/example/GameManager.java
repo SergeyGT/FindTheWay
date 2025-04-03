@@ -1,3 +1,6 @@
+package org.example;
+
+import Interfaces.IMaze;
 import lombok.Data;
 
 @Data
@@ -15,6 +18,14 @@ public class GameManager {
     }
 
     private void CreateField(){
-        
+
+    }
+
+    private class MazeObserver implements IMaze {
+
+        @Override
+        public void OnMaseComplete() {
+            EndGame();
+        }
     }
 }
