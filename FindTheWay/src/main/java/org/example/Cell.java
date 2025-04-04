@@ -7,7 +7,8 @@ enum Direction{
     SOUTH,
     NORTH,
     WEST,
-    EAST
+    EAST,
+    NULL
 }
 @Data
 public class Cell {
@@ -18,6 +19,21 @@ public class Cell {
     private boolean _isEmpty;
 
     public boolean CanConnect(Cell cell){
-        return true;
+        if (cell == null || this.is_isEmpty() || cell.is_isEmpty()) {
+            System.out.println("Cell is null or empty");
+            return false;
+        }
+
+        return this._directionExit == cell.InverseDirection(cell._directionEnter);
+    }
+
+    public Direction InverseDirection(Direction direction){
+        return switch (direction) {
+            case WEST -> Direction.EAST;
+            case EAST -> Direction.WEST;
+            case SOUTH -> Direction.NORTH;
+            case NORTH -> Direction.SOUTH;
+            default -> throw new RuntimeException("Нет направления");
+        };
     }
 }

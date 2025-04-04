@@ -14,7 +14,7 @@ public class GameManager {
     }
 
     private void EndGame(){
-
+        //_field.RemoveSubscribers(_field.);
     }
 
     private void CreateField(){

@@ -13,7 +13,9 @@ public class GameField {
     private List<List<Cell>> _cells;
 
     private void MoveCell(Cell cell){
+        if(CheckPossibilityMove(cell)) {
 
+        }
     }
 
     private boolean CheckPossibilityMove(Cell cell){
@@ -21,7 +23,7 @@ public class GameField {
     }
 
 
-    private List<IGameField> _subscribers;
+    public List<IGameField> _subscribers;
 
     public void AddSubscribers(IGameField subscriber){
         _subscribers.add(subscriber);
