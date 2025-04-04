@@ -7,8 +7,7 @@ enum Direction{
     SOUTH,
     NORTH,
     WEST,
-    EAST,
-    NULL
+    EAST
 }
 @Data
 public class Cell {
@@ -27,7 +26,7 @@ public class Cell {
         return this._directionExit == cell.InverseDirection(cell._directionEnter);
     }
 
-    public Direction InverseDirection(Direction direction){
+    private Direction InverseDirection(Direction direction){
         return switch (direction) {
             case WEST -> Direction.EAST;
             case EAST -> Direction.WEST;

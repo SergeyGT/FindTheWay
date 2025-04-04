@@ -1,16 +1,23 @@
 package org.example;
 
 import Interfaces.IGameField;
-import Interfaces.IMaze;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class GameField {
     private int _width;
     private int _height;
     private List<List<Cell>> _cells;
+
+
+    public GameField(int width, int height){
+        _width = width;
+        _height = height;
+    }
 
     private void MoveCell(Cell cell){
         if(CheckPossibilityMove(cell)) {

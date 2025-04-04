@@ -9,8 +9,8 @@ public class GameManager {
     private Maze _maze;
     private boolean _gameStatus;
 
-    private void StartGame(){
-
+    public void StartGame(){
+        CreateField();
     }
 
     private void EndGame(){
@@ -18,7 +18,7 @@ public class GameManager {
     }
 
     private void CreateField(){
-
+        _field = new GameField(5,5);
     }
 
     private class MazeObserver implements IMaze {
