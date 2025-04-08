@@ -1,5 +1,6 @@
 package org.example;
 
+import Factories.CellFactory;
 import Interfaces.IGameField;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,18 +18,66 @@ public class GameField {
     public GameField(int width, int height){
         _width = width;
         _height = height;
+        generateField();
     }
 
-    private void MoveCell(Cell cell){
-        if(CheckPossibilityMove(cell)) {
+    private void generateField() {
+        CellFactory factory = new CellFactory();
+        _cells.clear();
 
+        List<int[]> positions = new java.util.ArrayList<>();
+        for (int y = 0; y < _height; y++) {
+            for (int x = 0; x < _width; x++) {
+                positions.add(new int[] { x, y });
+            }
         }
+
+        java.util.Collections.shuffle(positions);
+        int[] emptyPos = positions.get(0);
+
+        for (int y = 0; y < _height; y++) {
+            List<Cell> row = new java.util.ArrayList<>();
+            for (int x = 0; x < _width; x++) {
+                boolean isEmpty = (x == emptyPos[0] && y == emptyPos[1]);
+                row.add(factory.createCell(x, y, isEmpty));
+            }
+            _cells.add(row);
+        }
+    }
+
+
+    private void MoveCell(Cell cell){
+        Cell emptyCell = getEmptyCell();
+        if (emptyCell == null) return;
+
+        int[] pos = cell.getPosition();
+        int[] emptyPos = emptyCell.getPosition();
+
+        int dx = Math.abs(pos[0] - emptyPos[0]);
+        int dy = Math.abs(pos[1] - emptyPos[1]);
+
+        if ((dx == 1 && dy == 0) || (dx == 0 && dy == 1)) {
+            boolean tempEmpty = cell.getIsEmpty();
+            swapCells(pos[0], pos[1], emptyPos[0], emptyPos[1]);
+        }
+    }
+
+    private void swapCells(int x1, int y1, int x2, int y2) {
+        Cell temp = _cells.get(y1).get(x1);
+        _cells.get(y1).set(x1, _cells.get(y2).get(x2));
+        _cells.get(y2).set(x2, temp);
     }
 
     private boolean CheckPossibilityMove(Cell cell){
         return true;
     }
 
+    public Cell getEmptyCell() {
+        for (java.util.List<Cell> row : _cells)
+            for (Cell cell : row)
+                if (cell.getIsEmpty()) return cell;
+        return null;
+    }
 
     public List<IGameField> _subscribers;
 

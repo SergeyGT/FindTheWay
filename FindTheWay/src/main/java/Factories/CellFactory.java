@@ -3,10 +3,8 @@ package Factories;
 
 import org.example.Cell;
 
-class CellFactory {
-    public Cell createCell(boolean isEmpty) {
-        Cell c = new Cell();
-        // initialize c
-        return c;
+public class CellFactory {
+    public Cell createCell(int x, int y, boolean isEmpty) {
+        return new Cell(x, y, isEmpty);
     }
 }
