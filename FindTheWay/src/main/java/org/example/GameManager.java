@@ -10,6 +10,7 @@ public class GameManager {
     private boolean _gameStatus;
 
     public void StartGame(){
+        _gameStatus = false;
         CreateField();
     }
 
