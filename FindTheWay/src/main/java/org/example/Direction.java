@@ -13,4 +13,8 @@ class Direction {
                 (direction == DirectionEnum.LEFT && other.direction == DirectionEnum.RIGHT) ||
                 (direction == DirectionEnum.RIGHT && other.direction == DirectionEnum.LEFT);
     }
+
+    public DirectionEnum getDirectionEnum() {
+        return direction;
+    }
 }

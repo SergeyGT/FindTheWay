@@ -45,7 +45,6 @@ public class GameField {
         }
     }
 
-
     private void MoveCell(Cell cell){
         Cell emptyCell = getEmptyCell();
         if (emptyCell == null) return;
@@ -57,19 +56,22 @@ public class GameField {
         int dy = Math.abs(pos[1] - emptyPos[1]);
 
         if ((dx == 1 && dy == 0) || (dx == 0 && dy == 1)) {
-            boolean tempEmpty = cell.getIsEmpty();
             swapCells(pos[0], pos[1], emptyPos[0], emptyPos[1]);
         }
     }
 
     private void swapCells(int x1, int y1, int x2, int y2) {
-        Cell temp = _cells.get(y1).get(x1);
-        _cells.get(y1).set(x1, _cells.get(y2).get(x2));
-        _cells.get(y2).set(x2, temp);
-    }
+        Cell cell1 = _cells.get(y1).get(x1);
+        Cell cell2 = _cells.get(y2).get(x2);
 
-    private boolean CheckPossibilityMove(Cell cell){
-        return true;
+        int tempX = cell1.getPosition()[0];
+        int tempY = cell1.getPosition()[1];
+
+        cell1.setPosition(x2, y2);
+        cell2.setPosition(x1, y1);
+
+        _cells.get(y1).set(x1, cell2);
+        _cells.get(y2).set(x2, cell1);
     }
 
     public Cell getEmptyCell() {
@@ -94,6 +96,4 @@ public class GameField {
             obj.CellMoved(_cells);
         }
     }
-
-
 }

@@ -10,8 +10,17 @@ public class GameManager {
     private boolean _gameStatus;
 
     public void StartGame(){
+        ResetGame();
         _gameStatus = false;
+        _field.AddSubscribers(_maze);
+        _maze.AddSubscribers( this);
         CreateField();
+    }
+
+    private void ResetGame(){
+        _gameStatus = false;
+        _field = null;
+        _maze = null;
     }
 
     private void EndGame(){
@@ -19,7 +28,7 @@ public class GameManager {
     }
 
     private void CreateField(){
-        _field = new GameField(5,5);
+        _field = new GameField(6,6);
     }
 
     private class MazeObserver implements IMaze {
