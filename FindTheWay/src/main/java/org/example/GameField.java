@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import static java.util.Collections.shuffle;
 
 @Getter
 @Setter
@@ -32,7 +33,7 @@ public class GameField {
             }
         }
 
-        java.util.Collections.shuffle(positions);
+        shuffle(positions);
         int[] emptyPos = positions.get(0);
 
         for (int y = 0; y < _height; y++) {

@@ -2,7 +2,6 @@ package org.example;
 
 import lombok.Data;
 
-
 @Data
 public class Cell {
     private int posX;

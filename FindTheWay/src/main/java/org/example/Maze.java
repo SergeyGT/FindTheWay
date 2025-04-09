@@ -9,7 +9,6 @@ import static org.example.DirectionEnum.*;
 
 public class Maze implements IGameField {
     private boolean CheckTargetState(List<List<Cell>> cells){
-        // Проход по всем ячейкам построчно
         for (int y = 0; y < cells.size(); y++) {
             for (int x = 0; x < cells.get(y).size(); x++) {
                 Cell current = cells.get(y).get(x);
@@ -41,8 +40,7 @@ public class Maze implements IGameField {
             }
         }
 
-        // Если всё прошло — путь правильный
-        NotifySubscribers(); // Уведомляем о завершении
+        NotifySubscribers();
         return true;
     }
 

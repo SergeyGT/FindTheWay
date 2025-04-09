@@ -12,9 +12,15 @@ public class GameManager {
     public void StartGame(){
         ResetGame();
         _gameStatus = false;
-        _field.AddSubscribers(_maze);
-        _maze.AddSubscribers( this);
+        AddDependencies();
         CreateField();
+    }
+
+    private void AddDependencies(){
+        _maze = new Maze();
+        _field.AddSubscribers(_maze);
+        MazeObserver observer = new MazeObserver();
+        _maze.AddSubscribers(observer);
     }
 
     private void ResetGame(){
