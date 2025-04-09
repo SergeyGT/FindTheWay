@@ -5,6 +5,7 @@ import Interfaces.IGameField;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import static java.util.Collections.shuffle;
 
@@ -24,7 +25,8 @@ public class GameField {
 
     private void generateField() {
         CellFactory factory = new CellFactory();
-        _cells.clear();
+
+        _cells = new ArrayList<>();
 
         List<int[]> positions = new java.util.ArrayList<>();
         for (int y = 0; y < _height; y++) {
@@ -34,7 +36,7 @@ public class GameField {
         }
 
         shuffle(positions);
-        int[] emptyPos = positions.get(0);
+        int[] emptyPos = positions.getFirst();
 
         for (int y = 0; y < _height; y++) {
             List<Cell> row = new java.util.ArrayList<>();
@@ -42,7 +44,13 @@ public class GameField {
                 boolean isEmpty = (x == emptyPos[0] && y == emptyPos[1]);
                 row.add(factory.createCell(x, y, isEmpty));
             }
-            _cells.add(row);
+
+            try {
+                _cells.add(row);
+            } catch (RuntimeException ex){
+                throw new RuntimeException("Невозможно сгенерировать столбец ячеек - ячейки пусты", ex);
+            }
+
         }
     }
 
@@ -82,7 +90,7 @@ public class GameField {
         return null;
     }
 
-    public List<IGameField> _subscribers;
+    public List<IGameField> _subscribers = new ArrayList<>();
 
     public void AddSubscribers(IGameField subscriber){
         _subscribers.add(subscriber);

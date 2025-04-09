@@ -12,8 +12,8 @@ public class GameManager {
     public void StartGame(){
         ResetGame();
         _gameStatus = false;
-        AddDependencies();
         CreateField();
+        AddDependencies();
     }
 
     private void AddDependencies(){

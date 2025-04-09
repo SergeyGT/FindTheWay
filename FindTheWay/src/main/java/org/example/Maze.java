@@ -3,6 +3,7 @@ package org.example;
 import Interfaces.IGameField;
 import Interfaces.IMaze;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.example.DirectionEnum.*;
@@ -51,7 +52,7 @@ public class Maze implements IGameField {
         }
     }
 
-    private List<IMaze> _subscribers;
+    private List<IMaze> _subscribers = new ArrayList<>();
 
     public void AddSubscribers(IMaze subscriber){
         _subscribers.add(subscriber);
