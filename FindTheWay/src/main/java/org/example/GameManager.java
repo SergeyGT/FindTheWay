@@ -37,7 +37,7 @@ public class GameManager {
         _field = new GameField(6,6);
     }
 
-    private class MazeObserver implements IMaze {
+    public class MazeObserver implements IMaze {
 
         @Override
         public void OnMaseComplete() {
