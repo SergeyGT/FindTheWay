@@ -6,7 +6,6 @@ import Interfaces.IMaze;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.DirectionEnum.*;
 
 public class Maze implements IGameField {
     private boolean CheckTargetState(List<List<Cell>> cells){
@@ -14,7 +13,6 @@ public class Maze implements IGameField {
             for (int x = 0; x < cells.get(y).size(); x++) {
                 Cell current = cells.get(y).get(x);
 
-                // Пропускаем пустые ячейки
                 if (current.getIsEmpty()) continue;
 
                 Direction exit = current.getDirectionExit();
