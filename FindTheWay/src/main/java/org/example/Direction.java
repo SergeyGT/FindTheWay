@@ -4,7 +4,7 @@ enum DirectionEnum {
     UP, DOWN, LEFT, RIGHT
 }
 
-class Direction {
+public class Direction {
     private DirectionEnum direction;
 
     public boolean canConnect(Direction other) {
@@ -17,4 +17,9 @@ class Direction {
     public DirectionEnum getDirectionEnum() {
         return direction;
     }
+
+    public void setDirection(DirectionEnum direction){
+        this.direction = direction;
+    }
+
 }

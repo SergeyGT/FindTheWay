@@ -10,10 +10,12 @@ public class Cell {
     private Direction _directionExit;
     private boolean _isEmpty;
 
-    public Cell(int posX, int posY, boolean isEmpty) {
+    public Cell(int posX, int posY, boolean isEmpty, Direction directionEnter, Direction directionExit) {
         this.posX = posX;
         this.posY = posY;
         this._isEmpty = isEmpty;
+        this._directionEnter = directionEnter;
+        this._directionExit = directionExit;
     }
 
     public int[] getPosition() {
@@ -27,6 +29,10 @@ public class Cell {
 
     public boolean getIsEmpty(){
         return this._isEmpty;
+    }
+
+    public void setIsEmpty(boolean _isEmpty){
+        this._isEmpty = _isEmpty;
     }
 
     public Direction getDirectionExit() {

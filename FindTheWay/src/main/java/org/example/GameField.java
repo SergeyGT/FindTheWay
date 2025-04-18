@@ -42,7 +42,11 @@ public class GameField {
             List<Cell> row = new java.util.ArrayList<>();
             for (int x = 0; x < _width; x++) {
                 boolean isEmpty = (x == emptyPos[0] && y == emptyPos[1]);
-                row.add(factory.createCell(x, y, isEmpty));
+                Direction directionEnter = new Direction();
+                Direction directionExit = new Direction();
+                directionEnter.setDirection(DirectionEnum.DOWN);
+                directionExit.setDirection(DirectionEnum.UP);
+                row.add(factory.createCell(x, y, isEmpty, directionEnter, directionExit));
             }
 
             try {
@@ -54,7 +58,7 @@ public class GameField {
         }
     }
 
-    private void MoveCell(Cell cell){
+    public void MoveCell(Cell cell){
         Cell emptyCell = getEmptyCell();
         if (emptyCell == null) return;
 
@@ -66,6 +70,7 @@ public class GameField {
 
         if ((dx == 1 && dy == 0) || (dx == 0 && dy == 1)) {
             swapCells(pos[0], pos[1], emptyPos[0], emptyPos[1]);
+            NotifySubscribers();
         }
     }
 
@@ -73,8 +78,11 @@ public class GameField {
         Cell cell1 = _cells.get(y1).get(x1);
         Cell cell2 = _cells.get(y2).get(x2);
 
-        int tempX = cell1.getPosition()[0];
-        int tempY = cell1.getPosition()[1];
+        boolean isEmpty1 = cell1.getIsEmpty();
+        boolean isEmpty2 = cell2.getIsEmpty();
+
+        cell1.setIsEmpty(isEmpty2);
+        cell2.setIsEmpty(isEmpty1);
 
         cell1.setPosition(x2, y2);
         cell2.setPosition(x1, y1);
