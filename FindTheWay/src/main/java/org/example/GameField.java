@@ -48,10 +48,8 @@ public class GameField {
             List<Cell> row = new java.util.ArrayList<>();
             for (int x = 0; x < _width; x++) {
                 boolean isEmpty = (x == emptyPos[0] && y == emptyPos[1]);
-                Direction directionEnter = new Direction();
-                Direction directionExit = new Direction();
-                directionEnter.setDirection(DirectionEnum.DOWN);
-                directionExit.setDirection(DirectionEnum.UP);
+                Direction directionEnter = new Direction(DirectionEnum.DOWN);
+                Direction directionExit = new Direction(DirectionEnum.UP);
                 //row.add(factory.createCell(x, y, isEmpty, directionEnter, directionExit));
             }
 

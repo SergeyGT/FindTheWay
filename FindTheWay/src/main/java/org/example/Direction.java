@@ -1,11 +1,11 @@
 package org.example;
 
-enum DirectionEnum {
-    UP, DOWN, LEFT, RIGHT
-}
-
 public class Direction {
     private DirectionEnum direction;
+
+    public Direction(DirectionEnum d){
+        direction = d;
+    }
 
     public boolean canConnect(Direction other) {
         return (direction == DirectionEnum.UP && other.direction == DirectionEnum.DOWN) ||

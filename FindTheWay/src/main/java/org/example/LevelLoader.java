@@ -30,13 +30,11 @@ public class LevelLoader {
                     Direction directionExit = null;
 
                     if (cellNode.hasNonNull("directionEnter")) {
-                        directionEnter = new Direction();
-                        directionEnter.setDirection(org.example.DirectionEnum.valueOf(cellNode.get("directionEnter").asText()));
+                        directionEnter = new Direction(org.example.DirectionEnum.valueOf(cellNode.get("directionEnter").asText()));
                     }
 
                     if (cellNode.hasNonNull("directionExit")) {
-                        directionExit = new Direction();
-                        directionExit.setDirection(org.example.DirectionEnum.valueOf(cellNode.get("directionExit").asText()));
+                        directionExit = new Direction(org.example.DirectionEnum.valueOf(cellNode.get("directionExit").asText()));
                     }
 
                     Cell cell = factory.createCell(x, y, isEmpty, isStart, isEnd, directionEnter, directionExit);

@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class Maze implements IGameField {
-    private boolean CheckTargetState(List<List<Cell>> cells) {
+    public boolean CheckTargetState(List<List<Cell>> cells) {
         for (int y = 0; y < cells.size(); y++) {
             for (int x = 0; x < cells.get(y).size(); x++) {
                 Cell current = cells.get(y).get(x);
