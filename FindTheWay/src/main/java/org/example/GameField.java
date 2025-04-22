@@ -20,7 +20,13 @@ public class GameField {
     public GameField(int width, int height){
         _width = width;
         _height = height;
-        generateField();
+    }
+
+    public void loadFromLevel(String filePath) {
+        List<List<Cell>> loadedCells = LevelLoader.loadFromJson(filePath);
+        _height = loadedCells.size();
+        _width = loadedCells.get(0).size();
+        _cells = loadedCells;
     }
 
     private void generateField() {
@@ -46,7 +52,7 @@ public class GameField {
                 Direction directionExit = new Direction();
                 directionEnter.setDirection(DirectionEnum.DOWN);
                 directionExit.setDirection(DirectionEnum.UP);
-                row.add(factory.createCell(x, y, isEmpty, directionEnter, directionExit));
+                //row.add(factory.createCell(x, y, isEmpty, directionEnter, directionExit));
             }
 
             try {
