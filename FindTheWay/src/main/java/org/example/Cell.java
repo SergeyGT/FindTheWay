@@ -9,11 +9,15 @@ public class Cell {
     private Direction _directionEnter;
     private Direction _directionExit;
     private boolean _isEmpty;
+    private boolean isStart;
+    private boolean isEnd;
 
-    public Cell(int posX, int posY, boolean isEmpty, Direction directionEnter, Direction directionExit) {
+    public Cell(int posX, int posY, boolean isEmpty, boolean isStart, boolean isEnd, Direction directionEnter, Direction directionExit) {
         this.posX = posX;
         this.posY = posY;
         this._isEmpty = isEmpty;
+        this.isStart = isStart;
+        this.isEnd = isEnd;
         this._directionEnter = directionEnter;
         this._directionExit = directionExit;
     }
