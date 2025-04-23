@@ -1,5 +1,8 @@
 package org.example;
 
 public enum DirectionEnum {
-    UP, DOWN, LEFT, RIGHT
+    UP,
+    LEFT,
+    RIGHT,
+    DOWN
 }

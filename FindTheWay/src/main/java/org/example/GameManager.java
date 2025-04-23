@@ -35,7 +35,7 @@ public class GameManager {
 
     private void CreateField(){
         _field = new GameField(2,2);
-        _field.loadFromLevel("resources/levels/level1.json");
+        _field.loadFromLevel("src/main/resources/levels/level1.json");
     }
 
     public class MazeObserver implements IMaze {

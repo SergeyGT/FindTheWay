@@ -29,7 +29,7 @@ public class GameField {
         _cells = loadedCells;
     }
 
-    private void generateField() {
+    public void generateField() {
         CellFactory factory = new CellFactory();
 
         _cells = new ArrayList<>();

@@ -14,12 +14,13 @@ public class GameFieldTests {
     @BeforeEach
     public void setUp() {
         gameField = new GameField(3, 3);
+        gameField.loadFromLevel("src/main/resources/levels/test.json");
     }
 
     @Test
     public void testEmptyCellExistsAfterGeneration() {
         Cell emptyCell = gameField.getEmptyCell();
-        assertNotNull(emptyCell, "На поле должна быть одна пустая ячейка после генерации");
+        assertNotNull(emptyCell, "На поле должна быть одна пустая ячейка ");
         assertTrue(emptyCell.getIsEmpty(), "Ячейка должна быть отмечена как пустая");
     }
 
@@ -29,7 +30,6 @@ public class GameFieldTests {
         int emptyX = emptyCell.getPosition()[0];
         int emptyY = emptyCell.getPosition()[1];
 
-        // Попробуем переместить соседнюю ячейку (если есть)
         Cell neighbor = null;
         if (emptyX > 0)
             neighbor = gameField.get_cells().get(emptyY).get(emptyX - 1);
