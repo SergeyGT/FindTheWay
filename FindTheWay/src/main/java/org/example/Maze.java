@@ -1,14 +1,14 @@
 package org.example;
 
-import Interfaces.IGameField;
-import Interfaces.IMaze;
+import Interfaces.IGameFieldListener;
+import Interfaces.IMazeListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Maze implements IGameField {
-    public boolean CheckTargetState(List<List<Cell>> cells) {
+public class Maze implements IGameFieldListener {
+    public boolean CheckMazeCondition(List<List<Cell>> cells) {
         for (int y = 0; y < cells.size(); y++) {
             for (int x = 0; x < cells.get(y).size(); x++) {
                 Cell current = cells.get(y).get(x);
@@ -62,23 +62,23 @@ public class Maze implements IGameField {
 
     @Override
     public void CellMoved(List<List<Cell>> cells) {
-        if (CheckTargetState(cells)) {
+        if (CheckMazeCondition(cells)) {
             System.out.println("Путь собран!");
         }
     }
 
-    private List<IMaze> _subscribers = new ArrayList<>();
+    private List<IMazeListener> _subscribers = new ArrayList<>();
 
-    public void AddSubscribers(IMaze subscriber){
+    public void AddSubscribers(IMazeListener subscriber){
         _subscribers.add(subscriber);
     }
 
-    public void RemoveSubscribers(IMaze subscriber){
+    public void RemoveSubscribers(IMazeListener subscriber){
         _subscribers.remove(subscriber);
     }
 
     private void NotifySubscribers(){
-        for(IMaze obj : _subscribers){
+        for(IMazeListener obj : _subscribers){
             obj.OnMaseComplete();
         }
     }

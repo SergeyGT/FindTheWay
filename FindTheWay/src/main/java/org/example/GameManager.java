@@ -1,6 +1,6 @@
 package org.example;
 
-import Interfaces.IMaze;
+import Interfaces.IMazeListener;
 import lombok.Data;
 
 @Data
@@ -11,7 +11,6 @@ public class GameManager {
 
     public void StartGame(){
         ResetGame();
-        _gameStatus = false;
         CreateField();
         AddDependencies();
     }
@@ -38,7 +37,7 @@ public class GameManager {
         _field.loadFromLevel("src/main/resources/levels/level1.json");
     }
 
-    public class MazeObserver implements IMaze {
+    public class MazeObserver implements IMazeListener {
 
         @Override
         public void OnMaseComplete() {

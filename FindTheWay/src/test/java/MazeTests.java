@@ -1,5 +1,5 @@
 import Factories.CellFactory;
-import Interfaces.IMaze;
+import Interfaces.IMazeListener;
 import org.example.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ public class MazeTests {
     private List<List<Cell>> cells;
 
     // Заглушка для подписчика
-    private static class TestSubscriber implements IMaze {
+    private static class TestSubscriber implements IMazeListener {
         public boolean wasNotified = false;
 
         @Override
@@ -41,7 +41,7 @@ public class MazeTests {
 
         cells.add(row);
 
-        assertTrue(maze.CheckTargetState(cells));
+        assertTrue(maze.CheckMazeCondition(cells));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class MazeTests {
 
         cells.add(row);
 
-        assertFalse(maze.CheckTargetState(cells));
+        assertFalse(maze.CheckMazeCondition(cells));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class MazeTests {
         cells.add(row1);
         cells.add(row2);
 
-        assertFalse(maze.CheckTargetState(cells)); // Нет пути, так как ячейки не соединены
+        assertFalse(maze.CheckMazeCondition(cells)); // Нет пути, так как ячейки не соединены
     }
 
     @Test
@@ -85,7 +85,7 @@ public class MazeTests {
 
         cells.add(row);
 
-        assertFalse(maze.CheckTargetState(cells));
+        assertFalse(maze.CheckMazeCondition(cells));
     }
 
     @Test

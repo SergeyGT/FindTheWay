@@ -1,7 +1,7 @@
 package org.example;
 
 import Factories.CellFactory;
-import Interfaces.IGameField;
+import Interfaces.IGameFieldListener;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,39 +27,6 @@ public class GameField {
         _height = loadedCells.size();
         _width = loadedCells.get(0).size();
         _cells = loadedCells;
-    }
-
-    public void generateField() {
-        CellFactory factory = new CellFactory();
-
-        _cells = new ArrayList<>();
-
-        List<int[]> positions = new java.util.ArrayList<>();
-        for (int y = 0; y < _height; y++) {
-            for (int x = 0; x < _width; x++) {
-                positions.add(new int[] { x, y });
-            }
-        }
-
-        shuffle(positions);
-        int[] emptyPos = positions.getFirst();
-
-        for (int y = 0; y < _height; y++) {
-            List<Cell> row = new java.util.ArrayList<>();
-            for (int x = 0; x < _width; x++) {
-                boolean isEmpty = (x == emptyPos[0] && y == emptyPos[1]);
-                Direction directionEnter = new Direction(DirectionEnum.DOWN);
-                Direction directionExit = new Direction(DirectionEnum.UP);
-                //row.add(factory.createCell(x, y, isEmpty, directionEnter, directionExit));
-            }
-
-            try {
-                _cells.add(row);
-            } catch (RuntimeException ex){
-                throw new RuntimeException("Невозможно сгенерировать столбец ячеек - ячейки пусты", ex);
-            }
-
-        }
     }
 
     public void MoveCell(Cell cell){
@@ -102,18 +69,18 @@ public class GameField {
         return null;
     }
 
-    public List<IGameField> _subscribers = new ArrayList<>();
+    public List<IGameFieldListener> _subscribers = new ArrayList<>();
 
-    public void AddSubscribers(IGameField subscriber){
+    public void AddSubscribers(IGameFieldListener subscriber){
         _subscribers.add(subscriber);
     }
 
-    public void RemoveSubscribers(IGameField subscriber){
+    public void RemoveSubscribers(IGameFieldListener subscriber){
         _subscribers.remove(subscriber);
     }
 
     private void NotifySubscribers(){
-        for(IGameField obj : _subscribers){
+        for(IGameFieldListener obj : _subscribers){
             obj.CellMoved(_cells);
         }
     }
