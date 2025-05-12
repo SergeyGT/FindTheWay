@@ -2,6 +2,8 @@ package org.example;
 
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
 public class Cell {
     private int posX;
@@ -27,8 +29,13 @@ public class Cell {
     }
 
     public void setPosition(int x, int y) {
+        // Добавляем проверку
+        if (this.posX == x && this.posY == y) {
+            System.out.println("Предупреждение: позиция не изменилась!");
+        }
         this.posX = x;
         this.posY = y;
+        System.out.println("Установлена позиция: " + this + " -> [" + x + "," + y + "]");
     }
 
     public boolean getIsEmpty(){
@@ -45,5 +52,18 @@ public class Cell {
 
     public Direction getDirectionEnter() {
         return this._directionEnter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return posX == cell.posX && posY == cell.posY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(posX, posY);
     }
 }

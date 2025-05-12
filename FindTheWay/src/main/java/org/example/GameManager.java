@@ -34,11 +34,21 @@ public class GameManager {
     }
 
     private void CreateField(){
-        _field = new GameField(2,2);
+        _field = new GameField(5,5);
         _field.loadFromLevel("src/main/resources/levels/level1.json");
 
         _field.AddSubscribers(_maze);
     }
+
+    public GameField getField(){
+        return _field;
+    }
+
+    public Maze getMaze()
+    {
+        return _maze;
+    }
+
 
     public class MazeObserver implements IMazeListener {
 
