@@ -9,52 +9,48 @@ import java.util.List;
 
 public class Maze implements IGameFieldListener {
     public boolean CheckMazeCondition(List<List<Cell>> cells) {
-        for (int y = 0; y < cells.size(); y++) {
-            for (int x = 0; x < cells.get(y).size(); x++) {
-                Cell current = cells.get(y).get(x);
+        Cell start = null, end = null;
 
-                if (current.getIsEmpty()) continue;
-
-                Direction exit = current.getDirectionExit();
-                if (exit == null) {
-                    if (!current.isEnd()) {
-                        return false;
-                    } else {
-                        continue;
-                    }
-                }
-
-                int nextX = x, nextY = y;
-                switch (exit.getDirectionEnum()) {
-                    case UP: nextY -= 1; break;
-                    case DOWN: nextY += 1; break;
-                    case LEFT: nextX -= 1; break;
-                    case RIGHT: nextX += 1; break;
-                }
-
-                // выход за границы
-                if (nextX < 0 || nextY < 0 || nextY >= cells.size() || nextX >= cells.get(nextY).size()) {
-                    if (!current.isEnd()) {
-                        return false;
-                    } else {
-                        continue;
-                    }
-                }
-
-                Cell nextCell = cells.get(nextY).get(nextX);
-                if (nextCell.getIsEmpty()) return false;
-
-                Direction enter = nextCell.getDirectionEnter();
-                if (enter == null && !nextCell.isStart()) {
-                    return false;
-                }
-
-                if (enter != null && !exit.canConnect(enter)) {
-                    return false;
-                }
+        // Находим старт и финиш
+        for (List<Cell> row : cells) {
+            for (Cell cell : row) {
+                if (cell.isStart()) start = cell;
+                if (cell.isEnd()) end = cell;
             }
         }
 
+        if (start == null || end == null) return false;
+
+        // Проверяем путь
+        Cell current = start;
+        while (current != null && !current.equals(end)) {
+            Direction exit = current.getDirectionExit();
+            if (exit == null) return false;
+
+            int nextX = current.getPosition()[0];
+            int nextY = current.getPosition()[1];
+
+            switch (exit.getDirectionEnum()) {
+                case UP: nextY--; break;
+                case DOWN: nextY++; break;
+                case LEFT: nextX--; break;
+                case RIGHT: nextX++; break;
+            }
+
+            // Проверка границ
+            if (nextX < 0 || nextY < 0 || nextY >= cells.size() || nextX >= cells.get(nextY).size()) {
+                return false;
+            }
+
+            Cell next = cells.get(nextY).get(nextX);
+            if (next.getIsEmpty() || !exit.canConnect(next.getDirectionEnter())) {
+                return false;
+            }
+
+            current = next;
+        }
+
+        // Уведомляем подписчиков о победе
         NotifySubscribers();
         return true;
     }

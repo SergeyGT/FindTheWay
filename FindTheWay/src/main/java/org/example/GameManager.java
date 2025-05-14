@@ -33,9 +33,16 @@ public class GameManager {
         gameStatus = GameStatus.ENDGAME;
     }
 
+    public boolean isGameCompleted(){
+        if(gameStatus == GameStatus.ENDGAME){
+            return true;
+        }
+        return false;
+    }
+
     private void CreateField(){
-        _field = new GameField(5,5);
-        _field.loadFromLevel("src/main/resources/levels/level1.json");
+        _field = new GameField(2,2);
+        _field.loadFromLevel("src/main/resources/levels/levelEasy.json");
 
         _field.AddSubscribers(_maze);
     }

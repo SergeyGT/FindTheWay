@@ -1,0 +1,237 @@
+[
+  [
+    {
+      "x": 0,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": true,
+      "isEnd": false,
+      "directionEnter": null,
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "DOWN"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "DOWN"
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "DOWN"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "isEmpty": true,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": null,
+      "directionExit": null
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": true,
+      "directionEnter": "LEFT",
+      "directionExit": null
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "DOWN"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "LEFT"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "RIGHT",
+      "directionExit": "DOWN"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "LEFT"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "RIGHT",
+      "directionExit": "UP"
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "UP"
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT"
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "UP"
+    }
+  ]
+]
