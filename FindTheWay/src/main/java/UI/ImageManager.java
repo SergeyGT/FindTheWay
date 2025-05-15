@@ -50,10 +50,6 @@ public class ImageManager {
         }
     }
 
-    public ImageIcon getDirectionIcon(DirectionEnum direction) {
-        return directionIcons.get(direction);
-    }
-
     public ImageIcon getStartIcon() { return startIcon; }
     public ImageIcon getEndIcon() { return endIcon; }
     public ImageIcon getEmptyIcon() { return emptyIcon; }

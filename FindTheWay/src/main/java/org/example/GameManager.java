@@ -3,6 +3,8 @@ package org.example;
 import Interfaces.IMazeListener;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -10,6 +12,13 @@ public class GameManager {
     private GameField _field;
     private Maze _maze;
     private GameStatus gameStatus;
+    private List<String> _levelsPath = new ArrayList<>();
+
+    public GameManager(){
+        _levelsPath.add("levelEasy.json");
+        _levelsPath.add("level1.json");
+        _levelsPath.add("level2.json");
+    }
 
     public void StartGame(){
         ResetGame();

@@ -1,5 +1,4 @@
 package UI;
-import Interfaces.IMazeListener;
 import org.example.Cell;
 import org.example.GameField;
 import org.example.GameManager;
@@ -92,7 +91,7 @@ public class GameWindow extends JFrame {
         setVisible(true);
     }
 
-        private boolean isAdjacent(Cell a, Cell b) {
+    private boolean isAdjacent(Cell a, Cell b) {
         int[] posA = a.getPosition();
         int[] posB = b.getPosition();
         int dx = Math.abs(posA[0] - posB[0]);
