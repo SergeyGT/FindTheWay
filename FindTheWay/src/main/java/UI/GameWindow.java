@@ -74,6 +74,9 @@ public class GameWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        setSize(700,600);
+        setResizable(false);
+
         // Панель информации
         movesLabel = new JLabel("Ходы: 0");
         add(movesLabel, BorderLayout.NORTH);
@@ -86,7 +89,7 @@ public class GameWindow extends JFrame {
         restartButton.addActionListener(e -> restartGame());
         add(restartButton, BorderLayout.SOUTH);
 
-        pack();
+        //pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }

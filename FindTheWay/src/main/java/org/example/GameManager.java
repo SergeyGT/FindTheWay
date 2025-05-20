@@ -13,6 +13,7 @@ public class GameManager {
     private Maze _maze;
     private GameStatus gameStatus;
     private List<String> _levelsPath = new ArrayList<>();
+    private Level level;
 
     public GameManager(){
         _levelsPath.add("levelEasy.json");
@@ -39,11 +40,15 @@ public class GameManager {
     }
 
     private void EndGame(){
-        gameStatus = GameStatus.ENDGAME;
+        gameStatus = GameStatus.WIN;
+    }
+
+    private void nextLevel(){
+
     }
 
     public boolean isGameCompleted(){
-        if(gameStatus == GameStatus.ENDGAME){
+        if(gameStatus == GameStatus.WIN){
             return true;
         }
         return false;

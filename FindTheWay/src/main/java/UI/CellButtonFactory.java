@@ -38,21 +38,22 @@ public class CellButtonFactory {
 
     private void configureNonEmptyButton(JButton button, Cell cell, CellClickListener listener) {
         if (cell.isStart()) {
-            button.setIcon(imageManager.getStartIcon());
+            //button.setIcon(imageManager.getStartIcon());
             button.setBackground(new Color(144, 238, 144));
+            button.setText(cell.getDirectionArrow(cell.getDirectionExit()));
             button.setEnabled(false);
             button.setToolTipText("Начальная точка");
         } else if (cell.isEnd()) {
-            button.setIcon(imageManager.getEndIcon());
+            //button.setIcon(imageManager.getEndIcon());
             button.setBackground(new Color(255, 182, 193));
             button.setEnabled(false);
+            button.setText(cell.getDirectionArrow(cell.getDirectionEnter()));
             button.setToolTipText("Конечная точка");
         } else {
             // Получаем направления входа и выхода
             Direction enter = cell.getDirectionEnter();
             Direction exit = cell.getDirectionExit();
 
-            // Определяем ключ для карты изображений
             String iconKey = determineIconKey(enter, exit);
 
             // Устанавливаем соответствующее изображение
@@ -82,6 +83,6 @@ public class CellButtonFactory {
         String enterDir = enter.getDirectionEnum().toString().toLowerCase();
         String exitDir = exit.getDirectionEnum().toString().toLowerCase();
 
-        return enterDir + exitDir; // или другой формат, соответствующий вашим именам файлов
+        return enterDir + exitDir;
     }
 }

@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.util.Objects;
 
+import static org.example.DirectionEnum.UP;
+
 @Data
 public class Cell {
     private int posX;
@@ -52,6 +54,16 @@ public class Cell {
 
     public Direction getDirectionEnter() {
         return this._directionEnter;
+    }
+
+    public String getDirectionArrow(Direction direction){
+        switch (direction.getDirectionEnum()){
+            case UP: return "↑";
+            case DOWN: return "↓";
+            case LEFT: return "←";
+            case RIGHT: return "→";
+        }
+        return "null";
     }
 
     @Override
