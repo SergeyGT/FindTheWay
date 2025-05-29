@@ -4,26 +4,28 @@ import Interfaces.IFlammable;
 import Interfaces.ILandscapeElement;
 
 public class Tree implements ILandscapeElement, IFlammable {
-    private int fireSurrounding = 0;
-    private boolean isAlive = true;
+    private boolean burnt = false;
 
     @Override
     public boolean canMove() { return true; }
     @Override
     public boolean canRotate() { return true; }
     @Override
-    public boolean canRemove() { return !isAlive; }
+    public boolean canRemove() { return burnt; }
 
     @Override
     public void update() {
-        if (fireSurrounding >= 4) {
-            isAlive = false;
-            // Превращается в дорогу (логика преобразования будет в декораторе)
-        }
+        // Логика обновления теперь в декораторе
     }
 
     @Override
-    public void surroundByFire() { fireSurrounding++; }
+    public void surroundByFire() {
+        System.out.println("Tree is now surrounded by fire!");
+        burnt = true;
+    }
+
     @Override
-    public boolean isBurnt() { return !isAlive; }
+    public boolean isBurnt() {
+        return burnt;
+    }
 }

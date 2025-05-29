@@ -82,20 +82,33 @@ public class GameField {
     public void updateLandscapeElements() {
         List<LandscapeCellDecorator> toRemove = new ArrayList<>();
 
+
         for (LandscapeCellDecorator decorator : landscapeDecorators) {
+            if (decorator.landscapeElement instanceof Tree) {
+                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
+                int fireCount = (int) neighbors.stream()
+                        .filter(n -> n.landscapeElement instanceof Fire)
+                        .count();
+
+                if (fireCount >= 4) {
+                    ((Tree) decorator.landscapeElement).surroundByFire();
+                    System.out.println("Tree at " + Arrays.toString(decorator.cell.getPosition()) +
+                            " surrounded by " + fireCount + " fires");
+                }
+            }
+        }
+
+        for (LandscapeCellDecorator decorator : landscapeDecorators) {
+            decorator.update();
             if (decorator.landscapeElement == null) {
                 toRemove.add(decorator);
                 continue;
             }
 
 
-
-//            // Для огня просто проверяем, нужно ли удалить
-//            if (decorator.landscapeElement instanceof Fire &&
-//                    decorator.landscapeElement.canRemove()) {
-//                decorator.cell.setLandscapeType(null);
-//                decorator.cell.setIsEmpty(true);
-//                toRemove.add(decorator);
+//            if (decorator.landscapeElement instanceof Tree) {
+//                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
+//                decorator.checkFireSurrounding(neighbors);
 //            }
 
             if (decorator.landscapeElement instanceof Fire && decorator.landscapeElement.canRemove()) {
@@ -104,17 +117,24 @@ public class GameField {
                 decorator.cell.setIsEmpty(true); // Важно: помечаем как пустую
                 toRemove.add(decorator);
             }
+//
+//            if (decorator.landscapeElement instanceof Tree && ((Tree) decorator.landscapeElement).isBurnt()) {
+//                decorator.cell.setLandscapeType(null);
+//                decorator.cell.setIsEmpty(true);
+//                decorator.cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
+//                decorator.cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
+//            }
 
-            if (decorator.landscapeElement instanceof IFlammable) {
-                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
-                int fireCount = (int) neighbors.stream()
-                        .filter(n -> n.landscapeElement instanceof Fire)
-                        .count();
-
-                if (fireCount >= 4) { // Дерево сгорает при 4 огнях вокруг
-                    ((IFlammable) decorator.landscapeElement).surroundByFire();
-                }
-            }
+//            if (decorator.landscapeElement instanceof IFlammable) {
+//                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
+//                int fireCount = (int) neighbors.stream()
+//                        .filter(n -> n.landscapeElement instanceof Fire)
+//                        .count();
+//
+//                if (fireCount >= 4) { // Дерево сгорает при 4 огнях вокруг
+//                    ((IFlammable) decorator.landscapeElement).surroundByFire();
+//                }
+//            }
 
             decorator.update();
         }

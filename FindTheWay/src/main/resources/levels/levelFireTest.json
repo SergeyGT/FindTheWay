@@ -1,0 +1,262 @@
+[
+  [
+    {
+      "x": 0,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": true,
+      "isEnd": false,
+      "directionEnter": null,
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": "FIRE"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "DOWN",
+      "landscapeType": "FIRE"
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": "FIRE"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": "TREE"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "isEmpty": true,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": null,
+      "directionExit": null,
+      "landscapeType": null
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "LEFT",
+      "landscapeType": null
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "DOWN",
+      "landscapeType": null
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": "FIRE"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "DOWN",
+      "landscapeType": null
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "UP",
+      "landscapeType": null
+    }
+  ],
+  [
+    {
+      "x": 0,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "UP",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": null
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": false,
+      "directionEnter": "LEFT",
+      "directionExit": "RIGHT",
+      "landscapeType": "FIRE"
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "isEmpty": false,
+      "isStart": false,
+      "isEnd": true,
+      "directionEnter": "LEFT",
+      "directionExit": null,
+      "landscapeType": null
+    }
+  ]
+]

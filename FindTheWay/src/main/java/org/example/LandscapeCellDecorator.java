@@ -3,6 +3,7 @@ package org.example;
 import Interfaces.ILandscapeElement;
 import Interfaces.IWaterable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class LandscapeCellDecorator {
@@ -33,16 +34,18 @@ public class LandscapeCellDecorator {
         landscapeElement.update();
 
         if (landscapeElement instanceof Tree && ((Tree) landscapeElement).isBurnt()) {
-            // Превращаем дерево в ячейку с направлением "прямая дорога" (например, слева направо)
+            System.out.println("Transforming burnt tree to road at " +
+                    Arrays.toString(cell.getPosition()));
+
+            // Превращаем в горизонтальную дорогу
             cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
             cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
             cell.setLandscapeType(null);
+            cell.setIsEmpty(false); // Дорога - не пустая клетка
             cell.setStart(false);
             cell.setEnd(false);
 
-            // Удаляем ландшафтный элемент, так как теперь это обычная ячейка
             this.landscapeElement = null;
-            //GameField.getInstance().removeLandscapeDecorator(this);
         }
         else if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
             this.landscapeElement = new WildGrass();
@@ -61,7 +64,13 @@ public class LandscapeCellDecorator {
             int fireCount = (int) neighbors.stream()
                     .filter(n -> n.landscapeElement instanceof Fire)
                     .count();
-            ((Tree) landscapeElement).surroundByFire();
+
+            // Дебаг-логирование
+            System.out.println("Fire neighbors for Tree: " + fireCount);
+
+            if (fireCount >= 4) {
+                ((Tree) landscapeElement).surroundByFire();
+            }
         }
     }
 }
