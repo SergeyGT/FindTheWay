@@ -18,7 +18,7 @@
       "isEnd": false,
       "directionEnter": "LEFT",
       "directionExit": "RIGHT",
-      "landscapeType": "GRASS"
+      "landscapeType": null
     },
     {
       "x": 2,

@@ -30,7 +30,8 @@ public class GamePanel {
                 Cell cell = field.getСells().get(y).get(x);
                 JButton button = buttonFactory.createCellButton(cell, this::handleCellClick);
 
-                decorateButtonWithLandscape(button, cell, field);
+                updateButtonAppearance(button, cell, field);
+                //decorateButtonWithLandscape(button, cell, field);
 
                 panel.add(button);
             }
@@ -40,29 +41,43 @@ public class GamePanel {
         panel.repaint();
     }
 
-    private void decorateButtonWithLandscape(JButton button, Cell cell, GameField field) {
-        // Находим декоратор для этой клетки
-        field.getLandscapeDecorators().stream()
-                .filter(d -> d.cell.equals(cell))
-                .findFirst()
-                .ifPresent(decorator -> {
-                    if (decorator.landscapeElement instanceof Tree) {
-                        button.setBackground(new Color(34, 139, 34)); // Зеленый для дерева
-                        if (((Tree) decorator.landscapeElement).isBurnt()) {
-                            button.setBackground(new Color(139, 69, 19)); // Коричневый для сгоревшего дерева
-                        }
-                    } else if (decorator.landscapeElement instanceof Fire) {
-                        button.setBackground(Color.RED);
-                    } else if (decorator.landscapeElement instanceof FlowerBed) {
-                        button.setBackground(Color.PINK);
-                        if (!((FlowerBed) decorator.landscapeElement).isAlive()) {
-                            button.setBackground(Color.GREEN);
-                        }
-                    } else if (decorator.landscapeElement instanceof WildGrass) {
-                        button.setBackground(Color.GREEN);
-                    }
-                });
+    private void updateButtonAppearance(JButton button, Cell cell, GameField field) {
+        // Сброс к базовому состоянию
+        button.setBackground(Color.WHITE);
+
+        // Обработка ландшафта
+        if (cell.getLandscapeType() != null) {
+            switch (cell.getLandscapeType().toLowerCase()) {
+                case "tree":
+                    button.setBackground(new Color(67, 39, 15));
+                    break;
+                case "fire":
+                    button.setBackground(Color.RED);
+                    // Проверяем, можно ли перемещать этот огонь
+                    boolean canMoveFire = field.getLandscapeDecorators().stream()
+                            .filter(d -> d.cell.equals(cell))
+                            .findFirst()
+                            .map(d -> d.landscapeElement instanceof Fire && ((Fire)d.landscapeElement).canMove())
+                            .orElse(true);
+                    if(!canMoveFire) button.setBackground(Color.CYAN);
+                    button.setEnabled(canMoveFire);
+
+                    break;
+                case "flower_bed":
+                    button.setBackground(Color.PINK);
+                    button.setEnabled(false); // Клумбы нельзя перемещать
+                    break;
+                case "grass":
+                    button.setBackground(Color.GREEN);
+                    break;
+            }
+        }
+
+        // Особые клетки (старт/финиш)
+        if (cell.isStart()) button.setBackground(new Color(144, 238, 144));
+        if (cell.isEnd()) button.setBackground(new Color(255, 182, 193));
     }
+
 
     public void setCellClickListener(CellClickListener listener) {
         this.clickListener = listener;

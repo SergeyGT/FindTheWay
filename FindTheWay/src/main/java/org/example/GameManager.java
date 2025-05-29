@@ -48,7 +48,7 @@ public class GameManager {
     }
 
     public void update() {
-        //_field.updateLandscapeElements();
+        _field.updateLandscapeElements();
 
         // Проверяем изменения после обновления
         if (_maze.CheckMazeCondition(_field.getСells())) {
@@ -65,7 +65,8 @@ public class GameManager {
 
     private void CreateField(){
         _field = new GameField(2,2);
-        _field.loadFromLevel("src/main/resources/levels/levelEasy.json");
+
+        _field.loadFromLevel("C:\\Java\\FindTheWay\\FindTheWay\\src\\main\\resources\\levels\\levelEasy.json");
 
         _field.AddSubscribers(_maze);
     }

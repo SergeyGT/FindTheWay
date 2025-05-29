@@ -15,6 +15,7 @@ public class LandscapeCellDecorator {
     }
 
     public boolean canMove() {
+        if (landscapeElement == null) return true;
         return landscapeElement.canMove() && !cell.getIsEmpty();
     }
 
@@ -27,12 +28,15 @@ public class LandscapeCellDecorator {
     }
 
     public void update() {
+        if (landscapeElement == null) return;
+
         landscapeElement.update();
 
         if (landscapeElement instanceof Tree && ((Tree) landscapeElement).isBurnt()) {
             // Превращаем дерево в ячейку с направлением "прямая дорога" (например, слева направо)
             cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
             cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
+            cell.setLandscapeType(null);
             cell.setStart(false);
             cell.setEnd(false);
 

@@ -1,7 +1,6 @@
 package UI;
-import org.example.Cell;
-import org.example.GameField;
-import org.example.GameManager;
+import org.example.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +10,7 @@ public class GameWindow extends JFrame {
     private JLabel movesLabel;
     private int movesCount;
     private final Timer gameStatusTimer;
-    private final Timer gameUpdateTimer;
+    //private final Timer gameUpdateTimer;
 
     public GameWindow(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -25,11 +24,11 @@ public class GameWindow extends JFrame {
         gameStatusTimer = new Timer(500, e -> checkGameStatus());
         gameStatusTimer.start();
 
-        gameUpdateTimer = new Timer(1000, e -> {
-            gameManager.update();
-            gamePanel.update();
-        });
-        gameUpdateTimer.start();
+//        gameUpdateTimer = new Timer(1000, e -> {
+//            gameManager.update();
+//            gamePanel.update();
+//        });
+//        gameUpdateTimer.start();
 
         initializeUI();
     }
@@ -64,10 +63,35 @@ public class GameWindow extends JFrame {
         Cell emptyCell = field.getEmptyCell();
 
         if (emptyCell != null && isAdjacent(cell, emptyCell)) {
+            if (!field.canMoveCell(cell)) {
+                JOptionPane.showMessageDialog(this, "Эту клетку нельзя перемещать!");
+                return;
+            }
+            // Дополнительная проверка для огня
+            if (cell.getLandscapeType() != null && cell.getLandscapeType().equalsIgnoreCase("fire")) {
+                // Получаем декоратор для этой клетки
+                LandscapeCellDecorator decorator = field.getLandscapeDecorators().stream()
+                        .filter(d -> d.cell.equals(cell))
+                        .findFirst()
+                        .orElse(null);
+
+                if (decorator != null && decorator.landscapeElement instanceof Fire) {
+                    Fire fire = (Fire) decorator.landscapeElement;
+                    if (!fire.canMove()) {
+                        JOptionPane.showMessageDialog(this, "Этот огонь уже гаснет и не может быть перемещен!");
+                        return;
+                    }
+                }
+            }
+
             field.MoveCell(cell);
             movesCount++;
             movesLabel.setText("Ходы: " + movesCount);
+            gameManager.update();
             gamePanel.update();
+
+
+
 
             // Проверяем условие победы
             if (gameManager.getMaze().CheckMazeCondition(field.getСells())) {
@@ -82,7 +106,7 @@ public class GameWindow extends JFrame {
         setLayout(new BorderLayout());
 
         setSize(700,600);
-        setResizable(false);
+        //setResizable(false);
 
         // Панель информации
         movesLabel = new JLabel("Ходы: 0");
