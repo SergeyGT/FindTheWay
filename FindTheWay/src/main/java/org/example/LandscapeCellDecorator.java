@@ -52,25 +52,5 @@ public class LandscapeCellDecorator {
         }
     }
 
-    // Дополнительные методы для работы с конкретными типами элементов
-    public void waterIfPossible() {
-        if (landscapeElement instanceof IWaterable) {
-            ((IWaterable) landscapeElement).water();
-        }
-    }
 
-    public void checkFireSurrounding(List<LandscapeCellDecorator> neighbors) {
-        if (landscapeElement instanceof Tree) {
-            int fireCount = (int) neighbors.stream()
-                    .filter(n -> n.landscapeElement instanceof Fire)
-                    .count();
-
-            // Дебаг-логирование
-            System.out.println("Fire neighbors for Tree: " + fireCount);
-
-            if (fireCount >= 4) {
-                ((Tree) landscapeElement).surroundByFire();
-            }
-        }
-    }
 }
