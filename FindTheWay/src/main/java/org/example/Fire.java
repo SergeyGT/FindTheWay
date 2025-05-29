@@ -46,4 +46,8 @@ public class Fire implements ILandscapeElement {
         }
     }
 
+    public int getMoveCount() {
+        return this.moveCount;
+    }
+
 }

@@ -22,7 +22,7 @@ public class CellsTest {
 
     @Test
     void testCellInitialization() {
-        Cell cell = cellFactory.createCell(2, 3, true, false, true, directionEnter, directionExit);
+        Cell cell = cellFactory.createCell(2, 3, true, false, true, directionEnter, directionExit, null);
 
         assertEquals(2, cell.getPosX());
         assertEquals(3, cell.getPosY());
@@ -35,7 +35,7 @@ public class CellsTest {
 
     @Test
     void testGetPosition() {
-        Cell cell = cellFactory.createCell(1, 1, false, true, false, directionEnter, directionExit);
+        Cell cell = cellFactory.createCell(1, 1, false, true, false, directionEnter, directionExit, null);
         int[] pos = cell.getPosition();
 
         assertArrayEquals(new int[]{1, 1}, pos);
@@ -43,7 +43,7 @@ public class CellsTest {
 
     @Test
     void testSetPosition() {
-        Cell cell = cellFactory.createCell(0, 0, false, false, false, directionEnter, directionExit);
+        Cell cell = cellFactory.createCell(0, 0, false, false, false, directionEnter, directionExit, null);
         cell.setPosition(4, 5);
 
         assertEquals(4, cell.getPosX());
@@ -52,20 +52,20 @@ public class CellsTest {
 
     @Test
     void testIsEmptyFalse() {
-        Cell cell = cellFactory.createCell(0, 0, false, false, false, directionEnter, directionExit);
+        Cell cell = cellFactory.createCell(0, 0, false, false, false, directionEnter, directionExit, null);
         assertFalse(cell.getIsEmpty());
     }
 
     @Test
     void testIsEmptyTrue() {
-        Cell cell = cellFactory.createCell(0, 0, true, false, false, directionEnter, directionExit);
+        Cell cell = cellFactory.createCell(0, 0, true, false, false, directionEnter, directionExit, null);
         assertTrue(cell.getIsEmpty());
     }
 
     @Test
     void testIsStartAndIsEnd() {
-        Cell startCell = cellFactory.createCell(0, 0, false, true, false, directionEnter, directionExit);
-        Cell endCell = cellFactory.createCell(1, 0, false, false, true, directionEnter, directionExit);
+        Cell startCell = cellFactory.createCell(0, 0, false, true, false, directionEnter, directionExit, null);
+        Cell endCell = cellFactory.createCell(1, 0, false, false, true, directionEnter, directionExit, null);
 
         assertTrue(startCell.isStart());
         assertFalse(startCell.isEnd());
