@@ -47,6 +47,15 @@ public class GameManager {
 
     }
 
+    public void update() {
+        _field.updateLandscapeElements();
+
+        // Проверяем изменения после обновления
+        if (_maze.CheckMazeCondition(_field.getСells())) {
+            gameStatus = GameStatus.WIN;
+        }
+    }
+
     public boolean isGameCompleted(){
         if(gameStatus == GameStatus.WIN){
             return true;

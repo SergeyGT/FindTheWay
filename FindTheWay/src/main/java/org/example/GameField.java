@@ -1,7 +1,9 @@
 package org.example;
 
 import Factories.CellFactory;
+import Interfaces.IFlammable;
 import Interfaces.IGameFieldListener;
+import Interfaces.IWaterable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +24,7 @@ public class GameField {
         _width = width;
         _height = height;
     }
+
 
     public int getHeight(){
         return _height;
@@ -121,6 +124,37 @@ public class GameField {
             for (Cell cell : row)
                 if (cell.getIsEmpty()) return cell;
         return null;
+    }
+
+
+    private List<LandscapeCellDecorator> landscapeElements = new ArrayList<>();
+
+    public void addLandscapeElement(LandscapeCellDecorator element) {
+        landscapeElements.add(element);
+    }
+
+    public void updateLandscapeElements() {
+        for (LandscapeCellDecorator element : landscapeElements) {
+            // Проверяем соседей для клумб и деревьев
+            if (element.landscapeElement instanceof IWaterable ||
+                    element.landscapeElement instanceof IFlammable) {
+                int[] pos = element.cell.getPosition();
+                List<LandscapeCellDecorator> neighbors = getNeighbors(pos[0], pos[1]);
+                element.checkFireSurrounding(neighbors);
+
+                // Проверяем полив для клумб
+                if (element.landscapeElement instanceof IWaterable) {
+                    boolean hasWaterNeighbor = neighbors.stream()
+                            .anyMatch(n -> n.cell.getDirectionExit() != null &&
+                                    n.cell.getDirectionExit().getDirectionEnum() == DirectionEnum.DOWN);
+                    if (hasWaterNeighbor) {
+                        ((IWaterable) element.landscapeElement).water();
+                    }
+                }
+            }
+
+            element.update();
+        }
     }
 
     public List<List<Cell>> getСells() {
