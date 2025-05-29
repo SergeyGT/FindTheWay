@@ -3,6 +3,7 @@ package org.example;
 import Factories.CellFactory;
 import Interfaces.IFlammable;
 import Interfaces.IGameFieldListener;
+import Interfaces.ILandscapeElement;
 import Interfaces.IWaterable;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class GameField {
     private int _width;
     private int _height;
     private List<List<Cell>> _cells;
-
+    private List<LandscapeCellDecorator> landscapeDecorators = new ArrayList<>();
 
     public GameField(int width, int height){
         _width = width;
@@ -40,7 +41,57 @@ public class GameField {
         _height = loadedCells.size();
         _width = loadedCells.get(0).size();
         _cells = loadedCells;
+
+        initializeLandscapeDecorators();
     }
+
+    private void initializeLandscapeDecorators() {
+        landscapeDecorators.clear();
+        for (List<Cell> row : _cells) {
+            for (Cell cell : row) {
+                if (!cell.getIsEmpty()) {
+                    // Здесь можно добавить логику создания разных типов ландшафтных элементов
+                    // на основе каких-то условий или данных из клетки
+                    ILandscapeElement element = new WildGrass(); // По умолчанию
+                    landscapeDecorators.add(new LandscapeCellDecorator(cell, element));
+                }
+            }
+        }
+    }
+
+    public void updateLandscapeElements() {
+        for (LandscapeCellDecorator decorator : landscapeDecorators) {
+            if (decorator != null) {
+                // Получаем соседей для проверки окружения огнем
+                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
+                decorator.checkFireSurrounding(neighbors);
+                decorator.update();
+            }
+        }
+    }
+
+    private List<LandscapeCellDecorator> getNeighbors(LandscapeCellDecorator decorator) {
+        List<LandscapeCellDecorator> neighbors = new ArrayList<>();
+        int[] pos = decorator.cell.getPosition();
+
+        // Проверяем все 4 возможных направления
+        int[][] directions = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+        for (int[] dir : directions) {
+            int nx = pos[0] + dir[0];
+            int ny = pos[1] + dir[1];
+
+            if (nx >= 0 && nx < _width && ny >= 0 && ny < _height) {
+                Cell neighborCell = _cells.get(ny).get(nx);
+                landscapeDecorators.stream()
+                        .filter(d -> d.cell.equals(neighborCell))
+                        .findFirst()
+                        .ifPresent(neighbors::add);
+            }
+        }
+
+        return neighbors;
+    }
+
 
     public void MoveCell(Cell cell){
         Cell emptyCell = getEmptyCell();
@@ -54,7 +105,7 @@ public class GameField {
         Cell newEmptyCell = new Cell(
                 cell.getPosition()[0],
                 cell.getPosition()[1],
-                true, false, false, null, null
+                true, false, false, null, null,null
         );
 
         Cell newMovedCell = new Cell(
@@ -64,7 +115,8 @@ public class GameField {
                 cell.isStart(),
                 cell.isEnd(),
                 cell.getDirectionEnter(),
-                cell.getDirectionExit()
+                cell.getDirectionExit(),
+                cell.getLandscapeType()
         );
 
         // Заменяем клетки в сетке
@@ -126,36 +178,6 @@ public class GameField {
         return null;
     }
 
-
-    private List<LandscapeCellDecorator> landscapeElements = new ArrayList<>();
-
-    public void addLandscapeElement(LandscapeCellDecorator element) {
-        landscapeElements.add(element);
-    }
-
-    public void updateLandscapeElements() {
-        for (LandscapeCellDecorator element : landscapeElements) {
-            // Проверяем соседей для клумб и деревьев
-            if (element.landscapeElement instanceof IWaterable ||
-                    element.landscapeElement instanceof IFlammable) {
-                int[] pos = element.cell.getPosition();
-                List<LandscapeCellDecorator> neighbors = getNeighbors(pos[0], pos[1]);
-                element.checkFireSurrounding(neighbors);
-
-                // Проверяем полив для клумб
-                if (element.landscapeElement instanceof IWaterable) {
-                    boolean hasWaterNeighbor = neighbors.stream()
-                            .anyMatch(n -> n.cell.getDirectionExit() != null &&
-                                    n.cell.getDirectionExit().getDirectionEnum() == DirectionEnum.DOWN);
-                    if (hasWaterNeighbor) {
-                        ((IWaterable) element.landscapeElement).water();
-                    }
-                }
-            }
-
-            element.update();
-        }
-    }
 
     public List<List<Cell>> getСells() {
         return this._cells;

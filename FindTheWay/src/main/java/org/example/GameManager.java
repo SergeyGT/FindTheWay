@@ -48,7 +48,7 @@ public class GameManager {
     }
 
     public void update() {
-        _field.updateLandscapeElements();
+        //_field.updateLandscapeElements();
 
         // Проверяем изменения после обновления
         if (_maze.CheckMazeCondition(_field.getСells())) {

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
-
     public static List<List<Cell>> loadFromJson(String filePath) {
         List<List<Cell>> field = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
@@ -37,7 +36,10 @@ public class LevelLoader {
                         directionExit = new Direction(org.example.DirectionEnum.valueOf(cellNode.get("directionExit").asText()));
                     }
 
-                    Cell cell = factory.createCell(x, y, isEmpty, isStart, isEnd, directionEnter, directionExit);
+                    String landscapeType = cellNode.hasNonNull("landscapeType") ?
+                            cellNode.get("landscapeType").asText() : null;
+
+                    Cell cell = factory.createCell(x, y, isEmpty, isStart, isEnd, directionEnter, directionExit, landscapeType);
                     row.add(cell);
                 }
                 field.add(row);

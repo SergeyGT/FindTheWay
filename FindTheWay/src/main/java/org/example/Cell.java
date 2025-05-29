@@ -4,8 +4,6 @@ import lombok.Data;
 
 import java.util.Objects;
 
-import static org.example.DirectionEnum.UP;
-
 @Data
 public class Cell {
     private int posX;
@@ -15,8 +13,9 @@ public class Cell {
     private boolean _isEmpty;
     private boolean isStart;
     private boolean isEnd;
+    private String landscapeType; // Новое поле
 
-    public Cell(int posX, int posY, boolean isEmpty, boolean isStart, boolean isEnd, Direction directionEnter, Direction directionExit) {
+    public Cell(int posX, int posY, boolean isEmpty, boolean isStart, boolean isEnd, Direction directionEnter, Direction directionExit, String landscapeType) {
         this.posX = posX;
         this.posY = posY;
         this._isEmpty = isEmpty;
@@ -24,6 +23,7 @@ public class Cell {
         this.isEnd = isEnd;
         this._directionEnter = directionEnter;
         this._directionExit = directionExit;
+        this.landscapeType = landscapeType; // Инициализация нового поля
     }
 
     public int[] getPosition() {
@@ -31,7 +31,6 @@ public class Cell {
     }
 
     public void setPosition(int x, int y) {
-        // Добавляем проверку
         if (this.posX == x && this.posY == y) {
             System.out.println("Предупреждение: позиция не изменилась!");
         }
@@ -40,11 +39,11 @@ public class Cell {
         System.out.println("Установлена позиция: " + this + " -> [" + x + "," + y + "]");
     }
 
-    public boolean getIsEmpty(){
+    public boolean getIsEmpty() {
         return this._isEmpty;
     }
 
-    public void setIsEmpty(boolean _isEmpty){
+    public void setIsEmpty(boolean _isEmpty) {
         this._isEmpty = _isEmpty;
     }
 
@@ -56,8 +55,9 @@ public class Cell {
         return this._directionEnter;
     }
 
-    public String getDirectionArrow(Direction direction){
-        switch (direction.getDirectionEnum()){
+    public String getDirectionArrow(Direction direction) {
+        if (direction == null) return "null";
+        switch (direction.getDirectionEnum()) {
             case UP: return "↑";
             case DOWN: return "↓";
             case LEFT: return "←";

@@ -7,7 +7,8 @@
       "isStart": true,
       "isEnd": false,
       "directionEnter": null,
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": null
     },
     {
       "x": 1,
@@ -16,7 +17,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "GRASS"
     },
     {
       "x": 2,
@@ -25,7 +27,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "DOWN"
+      "directionExit": "DOWN",
+      "landscapeType": "TREE"
     },
     {
       "x": 3,
@@ -34,7 +37,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "GRASS"
     },
     {
       "x": 4,
@@ -43,7 +47,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "DOWN"
+      "directionExit": "DOWN",
+      "landscapeType": "FLOWER_BED"
     }
   ],
   [
@@ -54,7 +59,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "GRASS"
     },
     {
       "x": 1,
@@ -63,7 +69,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "DOWN"
+      "directionExit": "DOWN",
+      "landscapeType": "FIRE"
     },
     {
       "x": 2,
@@ -72,7 +79,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "TREE"
     },
     {
       "x": 3,
@@ -81,7 +89,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": null,
-      "directionExit": null
+      "directionExit": null,
+      "landscapeType": null
     },
     {
       "x": 4,
@@ -90,7 +99,8 @@
       "isStart": false,
       "isEnd": true,
       "directionEnter": "LEFT",
-      "directionExit": null
+      "directionExit": null,
+      "landscapeType": "GRASS"
     }
   ],
   [
@@ -101,7 +111,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "DOWN"
+      "directionExit": "DOWN",
+      "landscapeType": "GRASS"
     },
     {
       "x": 1,
@@ -110,7 +121,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "LEFT"
+      "directionExit": "LEFT",
+      "landscapeType": "FLOWER_BED"
     },
     {
       "x": 2,
@@ -119,7 +131,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "RIGHT",
-      "directionExit": "DOWN"
+      "directionExit": "DOWN",
+      "landscapeType": "FIRE"
     },
     {
       "x": 3,
@@ -128,7 +141,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "LEFT"
+      "directionExit": "LEFT",
+      "landscapeType": "TREE"
     },
     {
       "x": 4,
@@ -137,7 +151,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "RIGHT",
-      "directionExit": "UP"
+      "directionExit": "UP",
+      "landscapeType": "GRASS"
     }
   ],
   [
@@ -148,7 +163,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "GRASS"
     },
     {
       "x": 1,
@@ -157,7 +173,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "TREE"
     },
     {
       "x": 2,
@@ -166,7 +183,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "GRASS"
     },
     {
       "x": 3,
@@ -175,7 +193,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "FLOWER_BED"
     },
     {
       "x": 4,
@@ -184,7 +203,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "UP"
+      "directionExit": "UP",
+      "landscapeType": "GRASS"
     }
   ],
   [
@@ -195,7 +215,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "FIRE"
     },
     {
       "x": 1,
@@ -204,7 +225,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "GRASS"
     },
     {
       "x": 2,
@@ -213,7 +235,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "TREE"
     },
     {
       "x": 3,
@@ -222,7 +245,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "RIGHT"
+      "directionExit": "RIGHT",
+      "landscapeType": "GRASS"
     },
     {
       "x": 4,
@@ -231,7 +255,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "LEFT",
-      "directionExit": "UP"
+      "directionExit": "UP",
+      "landscapeType": "FLOWER_BED"
     }
   ]
 ]

@@ -6,8 +6,8 @@ import Interfaces.IWaterable;
 import java.util.List;
 
 public class LandscapeCellDecorator {
-    private final Cell cell;
-    private ILandscapeElement landscapeElement;
+    public final Cell cell;
+    public ILandscapeElement landscapeElement;
 
     public LandscapeCellDecorator(Cell cell, ILandscapeElement element) {
         this.cell = cell;
@@ -38,7 +38,7 @@ public class LandscapeCellDecorator {
 
             // Удаляем ландшафтный элемент, так как теперь это обычная ячейка
             this.landscapeElement = null;
-            GameField.getInstance().removeLandscapeDecorator(this);
+            //GameField.getInstance().removeLandscapeDecorator(this);
         }
         else if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
             this.landscapeElement = new WildGrass();
