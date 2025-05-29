@@ -65,7 +65,22 @@ public class GamePanel {
                     break;
                 case "flower_bed":
                     button.setBackground(Color.PINK);
-                    button.setEnabled(false); // Клумбы нельзя перемещать
+                    button.setEnabled(false); // Нельзя перемещать
+
+                    // Проверяем состояние клумбы
+                    field.getLandscapeDecorators().stream()
+                            .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof FlowerBed)
+                            .findFirst()
+                            .ifPresent(d -> {
+                                FlowerBed flowerBed = (FlowerBed) d.landscapeElement;
+                                if (!flowerBed.isWatered()) {
+                                    // Визуальный индикатор недостатка воды
+                                    button.setBackground(new Color(255, 182, 193)); // Бледно-розовый
+                                }
+                                if (!flowerBed.isAlive()) {
+                                    button.setBackground(Color.GRAY); // Мертвая клумба
+                                }
+                            });
                     break;
                 case "grass":
                     button.setBackground(Color.GREEN);

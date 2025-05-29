@@ -74,6 +74,8 @@ public class GameField {
                 return new FlowerBed();
             case "wildgrass":
                 return new WildGrass();
+            case "water":
+                return new WaterElement();
             default:
                 return null; // Игнорируем неизвестные типы
         }
@@ -99,17 +101,12 @@ public class GameField {
         }
 
         for (LandscapeCellDecorator decorator : landscapeDecorators) {
-            decorator.update();
+            decorator.update(landscapeDecorators);
             if (decorator.landscapeElement == null) {
                 toRemove.add(decorator);
                 continue;
             }
 
-
-//            if (decorator.landscapeElement instanceof Tree) {
-//                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
-//                decorator.checkFireSurrounding(neighbors);
-//            }
 
             if (decorator.landscapeElement instanceof Fire && decorator.landscapeElement.canRemove()) {
                 // Делаем клетку пустой и неактивной
@@ -117,26 +114,8 @@ public class GameField {
                 decorator.cell.setIsEmpty(true); // Важно: помечаем как пустую
                 toRemove.add(decorator);
             }
-//
-//            if (decorator.landscapeElement instanceof Tree && ((Tree) decorator.landscapeElement).isBurnt()) {
-//                decorator.cell.setLandscapeType(null);
-//                decorator.cell.setIsEmpty(true);
-//                decorator.cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
-//                decorator.cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
-//            }
 
-//            if (decorator.landscapeElement instanceof IFlammable) {
-//                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
-//                int fireCount = (int) neighbors.stream()
-//                        .filter(n -> n.landscapeElement instanceof Fire)
-//                        .count();
-//
-//                if (fireCount >= 4) { // Дерево сгорает при 4 огнях вокруг
-//                    ((IFlammable) decorator.landscapeElement).surroundByFire();
-//                }
-//            }
-
-            decorator.update();
+            decorator.update(landscapeDecorators);
         }
 
         landscapeDecorators.removeAll(toRemove);
