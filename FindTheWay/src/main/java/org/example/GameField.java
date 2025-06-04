@@ -76,6 +76,8 @@ public class GameField {
                 return new WildGrass();
             case "water":
                 return new WaterElement();
+            case "burnt":
+                return new BurntFire();
             default:
                 return null; // Игнорируем неизвестные типы
         }
@@ -110,9 +112,12 @@ public class GameField {
 
             if (decorator.landscapeElement instanceof Fire && decorator.landscapeElement.canRemove()) {
                 // Делаем клетку пустой и неактивной
-                decorator.cell.setLandscapeType(null);
-                decorator.cell.setIsEmpty(true); // Важно: помечаем как пустую
-                toRemove.add(decorator);
+//                decorator.cell.setLandscapeType(null);
+//                decorator.cell.setIsEmpty(true); // Важно: помечаем как пустую
+//                toRemove.add(decorator);
+                decorator.cell.setLandscapeType("BURNT"); // Новый тип ландшафта
+                decorator.landscapeElement = new BurntFire(); // Специальный неактивный элемент
+                decorator.cell.setIsEmpty(false); // Важно: клетка НЕ пустая!
             }
 
             //decorator.update(landscapeDecorators);
