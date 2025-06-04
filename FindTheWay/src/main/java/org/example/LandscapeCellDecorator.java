@@ -71,7 +71,7 @@ public class LandscapeCellDecorator {
         }
 
 
-        //landscapeElement.update();
+        landscapeElement.update();
 
         if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
             System.out.println("Transforming dead FlowerBed to WildGrass at " +
@@ -101,7 +101,7 @@ public class LandscapeCellDecorator {
 //                    Arrays.toString(cell.getPosition()));
 //            this.landscapeElement = new WildGrass();
 //        }
-        landscapeElement.update();
+        //landscapeElement.update();
     }
 
     // Дополнительные методы для работы с конкретными типами элементов

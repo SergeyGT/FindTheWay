@@ -115,7 +115,7 @@ public class GameField {
                 toRemove.add(decorator);
             }
 
-            decorator.update(landscapeDecorators);
+            //decorator.update(landscapeDecorators);
         }
 
         landscapeDecorators.removeAll(toRemove);
