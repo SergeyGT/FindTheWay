@@ -5,7 +5,7 @@ import Interfaces.IWaterSource;
 
 public class WaterElement implements ILandscapeElement, IWaterSource {
     @Override
-    public boolean canMove() { return false; }
+    public boolean canMove() { return true; }
     @Override
     public boolean canRotate() { return false; }
     @Override

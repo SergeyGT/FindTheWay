@@ -73,6 +73,15 @@ public class LandscapeCellDecorator {
 
         landscapeElement.update();
 
+        if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
+            System.out.println("Transforming dead FlowerBed to WildGrass at " +
+                    Arrays.toString(cell.getPosition()));
+            // Обновляем тип ландшафта клетки
+            cell.setLandscapeType("wildgrass");
+            // Заменяем элемент на дикорастущую траву
+            this.landscapeElement = new WildGrass();
+        }
+
         if (landscapeElement instanceof Tree && ((Tree) landscapeElement).isBurnt()) {
             System.out.println("Transforming burnt tree to road at " +
                     Arrays.toString(cell.getPosition()));

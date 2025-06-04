@@ -61,7 +61,7 @@ public class CellButtonFactory {
                 button.setIcon(imageManager.getDirectionIcons().get(iconKey));
             } else {
                 // Запасной вариант, если изображение не найдено
-                button.setText("?");
+                button.setText("");
             }
             button.setBackground(Color.WHITE);
         }

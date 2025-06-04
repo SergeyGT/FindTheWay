@@ -79,11 +79,15 @@ public class GamePanel {
                                 }
                                 if (!flowerBed.isAlive()) {
                                     button.setBackground(Color.GRAY); // Мертвая клумба
+                                    button.setEnabled(true);
                                 }
                             });
                     break;
                 case "grass":
                     button.setBackground(Color.GREEN);
+                    break;
+                case "water":
+                    button.setBackground(Color.BLUE);
                     break;
             }
         }

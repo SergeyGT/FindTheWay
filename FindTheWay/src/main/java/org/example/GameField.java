@@ -129,6 +129,9 @@ public class GameField {
                 .filter(d -> d.cell.equals(cell))
                 .findFirst()
                 .map(decorator -> {
+                    if (decorator.landscapeElement instanceof FlowerBed) {
+                        return false; // Клумбы нельзя перемещать никогда
+                    }
                     // Специальная проверка для огня
                     if (decorator.landscapeElement instanceof Fire) {
                         return ((Fire) decorator.landscapeElement).canMove();

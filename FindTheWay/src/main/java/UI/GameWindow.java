@@ -10,7 +10,6 @@ public class GameWindow extends JFrame {
     private JLabel movesLabel;
     private int movesCount;
     private final Timer gameStatusTimer;
-    //private final Timer gameUpdateTimer;
 
     public GameWindow(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -24,11 +23,6 @@ public class GameWindow extends JFrame {
         gameStatusTimer = new Timer(500, e -> checkGameStatus());
         gameStatusTimer.start();
 
-//        gameUpdateTimer = new Timer(1000, e -> {
-//            gameManager.update();
-//            gamePanel.update();
-//        });
-//        gameUpdateTimer.start();
 
         initializeUI();
     }

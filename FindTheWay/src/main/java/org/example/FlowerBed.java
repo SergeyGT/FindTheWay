@@ -19,14 +19,16 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
     public void update() {
         if (!isWatered()) {
             turnsWithoutWater++;
-            System.out.println("FlowerBed turns without water: " + turnsWithoutWater);
+            System.out.println("FlowerBed turns without water: " + turnsWithoutWater +
+                    "/" + maxTurnsWithoutWater);
 
             if (turnsWithoutWater >= maxTurnsWithoutWater) {
                 isAlive = false;
-                System.out.println("FlowerBed has died!");
+                System.out.println("FlowerBed has died and will turn into wild grass!");
             }
         } else {
-            turnsWithoutWater = 0; // Сбрасываем счетчик при поливе
+            turnsWithoutWater = 0;
+            System.out.println("FlowerBed is properly watered");
         }
     }
 
