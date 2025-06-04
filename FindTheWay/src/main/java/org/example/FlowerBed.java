@@ -7,6 +7,7 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
     private int turnsWithoutWater = 0;
     private boolean isAlive = true;
     private final int maxTurnsWithoutWater = 3;
+    private boolean wasWateredThisTurn = false;
 
     @Override
     public boolean canMove() { return false; } // Нельзя перемещать
@@ -17,7 +18,20 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
 
     @Override
     public void update() {
-        if (!isWatered()) {
+//        if (!isWatered()) {
+//            turnsWithoutWater++;
+//            System.out.println("FlowerBed turns without water: " + turnsWithoutWater +
+//                    "/" + maxTurnsWithoutWater);
+//
+//            if (turnsWithoutWater >= maxTurnsWithoutWater) {
+//                isAlive = false;
+//                System.out.println("FlowerBed has died and will turn into wild grass!");
+//            }
+//        } else {
+//            turnsWithoutWater = 0;
+//            System.out.println("FlowerBed is properly watered");
+//        }
+        if (!wasWateredThisTurn) {
             turnsWithoutWater++;
             System.out.println("FlowerBed turns without water: " + turnsWithoutWater +
                     "/" + maxTurnsWithoutWater);
@@ -27,20 +41,21 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
                 System.out.println("FlowerBed has died and will turn into wild grass!");
             }
         } else {
-            turnsWithoutWater = 0;
             System.out.println("FlowerBed is properly watered");
         }
+        wasWateredThisTurn = false; // Сбрасываем флаг после обработки
     }
 
     @Override
     public void water() {
         turnsWithoutWater = 0;
+        wasWateredThisTurn = true;
         System.out.println("FlowerBed has been watered");
     }
 
     @Override
     public boolean isWatered() {
-        return turnsWithoutWater == 0;
+        return wasWateredThisTurn;
     }
 
     public boolean isAlive() {

@@ -72,7 +72,7 @@ public class GameField {
                 return new Fire();
             case "flowerbed":
                 return new FlowerBed();
-            case "wildgrass":
+            case "grass":
                 return new WildGrass();
             case "water":
                 return new WaterElement();

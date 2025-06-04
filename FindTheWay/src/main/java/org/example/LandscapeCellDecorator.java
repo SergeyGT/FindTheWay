@@ -71,13 +71,13 @@ public class LandscapeCellDecorator {
         }
 
 
-        landscapeElement.update();
+        //landscapeElement.update();
 
         if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
             System.out.println("Transforming dead FlowerBed to WildGrass at " +
                     Arrays.toString(cell.getPosition()));
             // Обновляем тип ландшафта клетки
-            cell.setLandscapeType("wildgrass");
+            cell.setLandscapeType("grass");
             // Заменяем элемент на дикорастущую траву
             this.landscapeElement = new WildGrass();
         }
@@ -96,11 +96,12 @@ public class LandscapeCellDecorator {
 
             this.landscapeElement = null;
         }
-        else if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
-            System.out.println("Transforming dead FlowerBed to WildGrass at " +
-                    Arrays.toString(cell.getPosition()));
-            this.landscapeElement = new WildGrass();
-        }
+//        else if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
+//            System.out.println("Transforming dead FlowerBed to WildGrass at " +
+//                    Arrays.toString(cell.getPosition()));
+//            this.landscapeElement = new WildGrass();
+//        }
+        landscapeElement.update();
     }
 
     // Дополнительные методы для работы с конкретными типами элементов

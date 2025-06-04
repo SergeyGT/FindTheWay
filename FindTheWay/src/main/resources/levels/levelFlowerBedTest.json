@@ -26,9 +26,9 @@
       "isEmpty": false,
       "isStart": false,
       "isEnd": false,
-      "directionEnter": "RIGHT",
+      "directionEnter": "DOWN",
       "directionExit": "RIGHT",
-      "landscapeType": "FIRE"
+      "landscapeType": null
     },
     {
       "x": 3,
@@ -47,8 +47,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "RIGHT",
-      "directionExit": "RIGHT",
-      "landscapeType": "FIRE"
+      "directionExit": "LEFT",
+      "landscapeType": null
     }
   ],
   [
@@ -68,9 +68,9 @@
       "isEmpty": false,
       "isStart": false,
       "isEnd": false,
-      "directionEnter":"RIGHT",
+      "directionEnter":"UP",
       "directionExit": "RIGHT",
-      "landscapeType": "FIRE"
+      "landscapeType": null
     },
     {
       "x": 2,
@@ -78,9 +78,9 @@
       "isEmpty": false,
       "isStart": false,
       "isEnd": false,
-      "directionEnter": null,
-      "directionExit": null,
-      "landscapeType": "TREE"
+      "directionEnter": "RIGHT",
+      "directionExit": "RIGHT",
+      "landscapeType": "WATER"
     },
     {
       "x": 3,
@@ -132,7 +132,7 @@
       "isEnd": false,
       "directionEnter": "RIGHT",
       "directionExit": "RIGHT",
-      "landscapeType": "FIRE"
+      "landscapeType": "FLOWERBED"
     },
     {
       "x": 3,
@@ -163,8 +163,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "UP",
-      "directionExit": "RIGHT",
-      "landscapeType": null
+      "directionExit": "UP",
+      "landscapeType": "GRASS"
     },
     {
       "x": 1,
@@ -245,8 +245,8 @@
       "isStart": false,
       "isEnd": false,
       "directionEnter": "RIGHT",
-      "directionExit": "RIGHT",
-      "landscapeType": "FIRE"
+      "directionExit": "DOWN",
+      "landscapeType": null
     },
     {
       "x": 4,

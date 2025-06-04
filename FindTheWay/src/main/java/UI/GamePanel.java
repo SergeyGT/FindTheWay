@@ -63,7 +63,7 @@ public class GamePanel {
                     button.setEnabled(canMoveFire);
 
                     break;
-                case "flower_bed":
+                case "flowerbed":
                     button.setBackground(Color.PINK);
                     button.setEnabled(false); // Нельзя перемещать
 
