@@ -78,8 +78,8 @@
       "isEmpty": false,
       "isStart": false,
       "isEnd": false,
-      "directionEnter": null,
-      "directionExit": null,
+      "directionEnter": "RIGHT",
+      "directionExit": "RIGHT",
       "landscapeType": "TREE"
     },
     {
