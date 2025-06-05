@@ -10,5 +10,5 @@ public class WildGrass implements ILandscapeElement {
     @Override
     public boolean canRemove() { return true; }
     @Override
-    public void update() {} // No special behavior
+    public void update() {}
 }

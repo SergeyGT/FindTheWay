@@ -7,13 +7,13 @@ public class Fire implements ILandscapeElement {
     private int maxMoves = 3;
 
     public Fire() {
-        this(0); // Стандартный огонь с 0 перемещений
+        this(0);
     }
 
     // Конструктор для копирования
     private Fire(int currentMoves) {
         this.moveCount = currentMoves;
-        this.maxMoves = 3; // Фиксированное значение
+        this.maxMoves = 3;
     }
 
     // Метод для клонирования

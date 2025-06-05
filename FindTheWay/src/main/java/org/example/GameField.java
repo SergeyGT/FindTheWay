@@ -111,10 +111,6 @@ public class GameField {
 
 
             if (decorator.landscapeElement instanceof Fire && decorator.landscapeElement.canRemove()) {
-                // Делаем клетку пустой и неактивной
-//                decorator.cell.setLandscapeType(null);
-//                decorator.cell.setIsEmpty(true); // Важно: помечаем как пустую
-//                toRemove.add(decorator);
                 decorator.cell.setLandscapeType("BURNT"); // Новый тип ландшафта
                 decorator.landscapeElement = new BurntFire(); // Специальный неактивный элемент
                 decorator.cell.setIsEmpty(false); // Важно: клетка НЕ пустая!
@@ -191,7 +187,6 @@ public class GameField {
                     });
         }
 
-        // Создаем НОВЫЕ объекты клеток вместо модификации существующих
         Cell newEmptyCell = new Cell(
                 cell.getPosition()[0],
                 cell.getPosition()[1],
@@ -261,32 +256,6 @@ public class GameField {
 
         // Клетки соседние, если разница по одной координате равна 1, а по другой - 0
         return (dx == 1 && dy == 0) || (dx == 0 && dy == 1);
-    }
-
-    private void swapCells(int x1, int y1, int x2, int y2) {
-        // 1. Получаем ссылки на объекты клеток
-        Cell cell1 = _cells.get(y1).get(x1);
-        Cell cell2 = _cells.get(y2).get(x2);
-
-        // 2. Меняем клетки местами в сетке
-        _cells.get(y1).set(x1, cell2);
-        _cells.get(y2).set(x2, cell1);
-
-        // 3. Обновляем координаты клеток
-        cell1.setPosition(x2, y2);  // Важно: сначала обновляем позиции
-        cell2.setPosition(x1, y1);
-
-        // 4. Меняем флаги empty
-        boolean tempEmpty = cell1.getIsEmpty();
-        cell1.setIsEmpty(cell2.getIsEmpty());
-        cell2.setIsEmpty(tempEmpty);
-
-        // 5. Валидация
-        System.out.println("Проверка после swap:");
-        System.out.println("Клетка 1 теперь: " + cell1 + " at " + Arrays.toString(cell1.getPosition()));
-        System.out.println("Клетка 2 теперь: " + cell2 + " at " + Arrays.toString(cell2.getPosition()));
-        System.out.println("В сетке на ["+x1+","+y1+"]: " + _cells.get(y1).get(x1));
-        System.out.println("В сетке на ["+x2+","+y2+"]: " + _cells.get(y2).get(x2));
     }
 
     public Cell getEmptyCell() {

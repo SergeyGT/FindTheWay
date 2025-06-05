@@ -100,7 +100,7 @@ public class GameWindow extends JFrame {
         setLayout(new BorderLayout());
 
         setSize(700,600);
-        //setResizable(false);
+        setResizable(false);
 
         // Панель информации
         movesLabel = new JLabel("Ходы: 0");

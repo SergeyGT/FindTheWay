@@ -45,7 +45,7 @@ public class CellButtonFactory {
             button.setToolTipText("Начальная точка");
         } else if (cell.isEnd()) {
             //button.setIcon(imageManager.getEndIcon());
-            button.setBackground(new Color(255, 182, 193));
+            button.setBackground(Color.red);
             button.setEnabled(false);
             button.setText(cell.getDirectionArrow(cell.getDirectionEnter()));
             button.setToolTipText("Конечная точка");

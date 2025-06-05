@@ -75,7 +75,7 @@ public class GamePanel {
                                 FlowerBed flowerBed = (FlowerBed) d.landscapeElement;
                                 if (!flowerBed.isWatered()) {
                                     // Визуальный индикатор недостатка воды
-                                    button.setBackground(new Color(255, 182, 193)); // Бледно-розовый
+                                    button.setBackground(new Color(255, 182, 150)); // Бледно-розовый
                                 }
                                 if (!flowerBed.isAlive()) {
                                     button.setBackground(Color.GRAY); // Мертвая клумба
