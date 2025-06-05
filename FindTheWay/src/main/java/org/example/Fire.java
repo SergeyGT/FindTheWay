@@ -45,4 +45,8 @@ public class Fire implements ILandscapeElement {
             System.out.println("Fire moved: " + moveCount + "/" + maxMoves);
         }
     }
+
+    public int getMoveCount() {
+        return moveCount;
+    }
 }

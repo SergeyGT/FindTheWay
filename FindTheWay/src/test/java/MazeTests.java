@@ -36,8 +36,8 @@ public class MazeTests {
     @Test
     void testCheckTargetState_ValidPath() {
         List<Cell> row = new ArrayList<>();
-        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT)));
-        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null));
+        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT), null));
+        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null, null));
 
         cells.add(row);
 
@@ -47,8 +47,8 @@ public class MazeTests {
     @Test
     void testCheckTargetState_InvalidPath() {
         List<Cell> row = new ArrayList<>();
-        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(UP)));
-        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(RIGHT), null));
+        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(UP), null));
+        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(RIGHT), null, null));
 
         cells.add(row);
 
@@ -65,12 +65,12 @@ public class MazeTests {
 //
 //        assertFalse(maze.CheckTargetState(cells)); // Нет связи между ячейками
         List<Cell> row1 = new ArrayList<>();
-        row1.add(cellFactory.createCell(0, 0, true, false, false, null, null)); // Пустая ячейка
-        row1.add(cellFactory.createCell(1, 0, false, true, false, null, null)); // Ячейка стартовая, но без выхода
+        row1.add(cellFactory.createCell(0, 0, true, false, false, null, null, null)); // Пустая ячейка
+        row1.add(cellFactory.createCell(1, 0, false, true, false, null, null, null)); // Ячейка стартовая, но без выхода
 
         List<Cell> row2 = new ArrayList<>();
-        row2.add(cellFactory.createCell(0, 1, true, false, false, null, null)); // Пустая ячейка
-        row2.add(cellFactory.createCell(1, 1, false, false, true, new Direction(LEFT), new Direction(RIGHT))); // Конечная ячейка
+        row2.add(cellFactory.createCell(0, 1, true, false, false, null, null, null)); // Пустая ячейка
+        row2.add(cellFactory.createCell(1, 1, false, false, true, new Direction(LEFT), new Direction(RIGHT), null)); // Конечная ячейка
 
         cells.add(row1);
         cells.add(row2);
@@ -81,7 +81,7 @@ public class MazeTests {
     @Test
     void testCheckTargetState_ExitOutOfBounds() {
         List<Cell> row = new ArrayList<>();
-        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(UP))); // Вверх – за пределы
+        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(UP), null)); // Вверх – за пределы
 
         cells.add(row);
 
@@ -91,8 +91,8 @@ public class MazeTests {
     @Test
     void testCellMoved_ValidPath() {
         List<Cell> row = new ArrayList<>();
-        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT)));
-        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null));
+        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT), null));
+        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null, null));
 
         cells.add(row);
 
@@ -105,8 +105,8 @@ public class MazeTests {
         maze.AddSubscribers(subscriber);
 
         List<Cell> row = new ArrayList<>();
-        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT)));
-        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null));
+        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT), null));
+        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null, null));
 
         cells.add(row);
 
@@ -124,8 +124,8 @@ public class MazeTests {
         maze.RemoveSubscribers(sub2);
 
         List<Cell> row = new ArrayList<>();
-        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT)));
-        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null));
+        row.add(cellFactory.createCell(0, 0, false, true, false, null, new Direction(RIGHT), null));
+        row.add(cellFactory.createCell(1, 0, false, false, true, new Direction(LEFT), null, null));
 
         cells.add(row);
 

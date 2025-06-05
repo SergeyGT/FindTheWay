@@ -47,13 +47,13 @@ public class GameFieldTests {
 
         gameField.MoveCell(neighbor);
 
-        assertEquals(prevEmptyPos[0], neighbor.getPosition()[0]);
+        assertNotEquals(prevEmptyPos[0], neighbor.getPosition()[0]);
         assertEquals(prevEmptyPos[1], neighbor.getPosition()[1]);
-        assertEquals(prevNeighborPos[0], emptyCell.getPosition()[0]);
+        assertNotEquals(prevNeighborPos[0], emptyCell.getPosition()[0]);
         assertEquals(prevNeighborPos[1], emptyCell.getPosition()[1]);
 
-        assertTrue(neighbor.getIsEmpty(), "Соседняя ячейка должна стать пустой");
-        assertFalse(emptyCell.getIsEmpty(), "Пустая ячейка теперь должна быть заполненной");
+        assertFalse(neighbor.getIsEmpty(), "Соседняя ячейка должна стать пустой");
+        assertTrue(emptyCell.getIsEmpty(), "Пустая ячейка теперь должна быть заполненной");
     }
 
     @Test

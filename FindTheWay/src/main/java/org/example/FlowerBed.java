@@ -48,4 +48,8 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
     public boolean isAlive() {
         return isAlive;
     }
+
+    public int getTurnsWithoutWater() {
+        return turnsWithoutWater;
+    }
 }
