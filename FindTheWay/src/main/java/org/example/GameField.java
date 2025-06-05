@@ -111,12 +111,10 @@ public class GameField {
 
 
             if (decorator.landscapeElement instanceof Fire && decorator.landscapeElement.canRemove()) {
-                decorator.cell.setLandscapeType("BURNT"); // Новый тип ландшафта
-                decorator.landscapeElement = new BurntFire(); // Специальный неактивный элемент
-                decorator.cell.setIsEmpty(false); // Важно: клетка НЕ пустая!
+                decorator.cell.setLandscapeType("BURNT");
+                decorator.landscapeElement = new BurntFire();
+                decorator.cell.setIsEmpty(false);
             }
-
-            //decorator.update(landscapeDecorators);
         }
 
         landscapeDecorators.removeAll(toRemove);

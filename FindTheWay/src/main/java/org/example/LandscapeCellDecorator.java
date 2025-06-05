@@ -90,12 +90,11 @@ public class LandscapeCellDecorator {
             cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
             cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
             cell.setLandscapeType(null);
-            cell.setIsEmpty(false); // Дорога - не пустая клетка
+            cell.setIsEmpty(false);
             cell.setStart(false);
             cell.setEnd(false);
 
             this.landscapeElement = null;
         }
-        //landscapeElement.update();
     }
 }

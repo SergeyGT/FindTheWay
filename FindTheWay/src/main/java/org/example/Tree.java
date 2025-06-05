@@ -15,7 +15,6 @@ public class Tree implements ILandscapeElement, IFlammable {
 
     @Override
     public void update() {
-        // Логика обновления теперь в декораторе
     }
 
     @Override

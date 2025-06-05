@@ -57,13 +57,6 @@ public class MazeTests {
 
     @Test
     void testCheckTargetState_WithEmptyCells() {
-//        List<Cell> row = new ArrayList<>();
-//        row.add(cellFactory.createCell(0, 0, true, false, false, null, null));
-//        row.add(cellFactory.createCell(1, 0, false, true, true, new Direction(LEFT), new Direction(RIGHT)));
-//
-//        cells.add(row);
-//
-//        assertFalse(maze.CheckTargetState(cells)); // Нет связи между ячейками
         List<Cell> row1 = new ArrayList<>();
         row1.add(cellFactory.createCell(0, 0, true, false, false, null, null, null)); // Пустая ячейка
         row1.add(cellFactory.createCell(1, 0, false, true, false, null, null, null)); // Ячейка стартовая, но без выхода

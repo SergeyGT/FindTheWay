@@ -79,7 +79,6 @@ public class CellButtonFactory {
             return null;
         }
 
-        // Формируем ключ в формате "вход_выход" (например, "left_up")
         String enterDir = enter.getDirectionEnum().toString().toLowerCase();
         String exitDir = exit.getDirectionEnum().toString().toLowerCase();
 

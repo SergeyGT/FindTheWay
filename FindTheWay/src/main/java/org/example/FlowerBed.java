@@ -10,11 +10,11 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
     private boolean wasWateredThisTurn = false;
 
     @Override
-    public boolean canMove() { return false; } // Нельзя перемещать
+    public boolean canMove() { return false; }
     @Override
-    public boolean canRotate() { return false; } // Нельзя поворачивать
+    public boolean canRotate() { return false; }
     @Override
-    public boolean canRemove() { return !isAlive; } // Можно удалить только мертвую
+    public boolean canRemove() { return !isAlive; }
 
     @Override
     public void update() {
@@ -30,7 +30,7 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
         } else {
             System.out.println("FlowerBed is properly watered");
         }
-        wasWateredThisTurn = false; // Сбрасываем флаг после обработки
+        wasWateredThisTurn = false;
     }
 
     @Override

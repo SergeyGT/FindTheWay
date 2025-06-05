@@ -50,7 +50,6 @@ public class Maze implements IGameFieldListener {
             current = next;
         }
 
-        // Уведомляем подписчиков о победе
         NotifySubscribers();
         return true;
     }
