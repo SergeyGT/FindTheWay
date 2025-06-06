@@ -4,6 +4,11 @@ import org.example.*;
 import javax.swing.*;
 import java.awt.*;
 
+import org.example.*;
+
+import javax.swing.*;
+import java.awt.*;
+
 public class GamePanel {
     private final JPanel panel;
     private final GameManager gameManager;
@@ -23,6 +28,8 @@ public class GamePanel {
     public void update() {
         panel.removeAll();
         GameField field = gameManager.getField();
+        LandscapeManager landscapeManager = gameManager.getLandscapeManager();
+
         panel.setLayout(new GridLayout(field.getHeight(), field.getWidth()));
 
         for (int y = 0; y < field.getHeight(); y++) {
@@ -30,8 +37,7 @@ public class GamePanel {
                 Cell cell = field.getСells().get(y).get(x);
                 JButton button = buttonFactory.createCellButton(cell, this::handleCellClick);
 
-                updateButtonAppearance(button, cell, field);
-                //decorateButtonWithLandscape(button, cell, field);
+                updateButtonAppearance(button, cell, landscapeManager);
 
                 panel.add(button);
             }
@@ -41,11 +47,9 @@ public class GamePanel {
         panel.repaint();
     }
 
-    private void updateButtonAppearance(JButton button, Cell cell, GameField field) {
-        // Сброс к базовому состоянию
+    private void updateButtonAppearance(JButton button, Cell cell, LandscapeManager landscapeManager) {
         button.setBackground(Color.WHITE);
 
-        // Обработка ландшафта
         if (cell.getLandscapeType() != null) {
             switch (cell.getLandscapeType().toLowerCase()) {
                 case "tree":
@@ -53,35 +57,27 @@ public class GamePanel {
                     break;
                 case "fire":
                     button.setBackground(Color.RED);
-                    // Проверяем, можно ли перемещать этот огонь
-                    boolean canMoveFire = field.getLandscapeDecorators().stream()
-                            .filter(d -> d.cell.equals(cell))
-                            .findFirst()
-                            .map(d -> d.landscapeElement instanceof Fire && ((Fire)d.landscapeElement).canMove())
-                            .orElse(true);
-                    if(!canMoveFire) button.setBackground(Color.CYAN);
+                    boolean canMoveFire = landscapeManager.getDecorator(cell) == null
+                            || !(landscapeManager.getDecorator(cell).landscapeElement instanceof Fire)
+                            || ((Fire) landscapeManager.getDecorator(cell).landscapeElement).canMove();
+                    if (!canMoveFire) button.setBackground(Color.CYAN);
                     button.setEnabled(canMoveFire);
-
                     break;
                 case "flowerbed":
                     button.setBackground(Color.PINK);
-                    button.setEnabled(false); // Нельзя перемещать
+                    button.setEnabled(false);
 
-                    // Проверяем состояние клумбы
-                    field.getLandscapeDecorators().stream()
-                            .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof FlowerBed)
-                            .findFirst()
-                            .ifPresent(d -> {
-                                FlowerBed flowerBed = (FlowerBed) d.landscapeElement;
-                                if (!flowerBed.isWatered()) {
-                                    // Визуальный индикатор недостатка воды
-                                    button.setBackground(new Color(255, 182, 150)); // Бледно-розовый
-                                }
-                                if (!flowerBed.isAlive()) {
-                                    button.setBackground(Color.GRAY); // Мертвая клумба
-                                    button.setEnabled(true);
-                                }
-                            });
+                    LandscapeCellDecorator decorator = landscapeManager.getDecorator(cell);
+                    if (decorator != null && decorator.landscapeElement instanceof FlowerBed) {
+                        FlowerBed fb = (FlowerBed) decorator.landscapeElement;
+                        if (!fb.isWatered()) {
+                            button.setBackground(new Color(255, 182, 150));
+                        }
+                        if (!fb.isAlive()) {
+                            button.setBackground(Color.GRAY);
+                            button.setEnabled(true); // можно удалить мертвую клумбу
+                        }
+                    }
                     break;
                 case "grass":
                     button.setBackground(Color.GREEN);
@@ -90,7 +86,7 @@ public class GamePanel {
                     button.setBackground(Color.BLUE);
                     break;
                 case "grassroad":
-                    button.setBackground(new Color(1,52,32));
+                    button.setBackground(new Color(1, 52, 32));
                     break;
                 case "burnt":
                     button.setBackground(Color.DARK_GRAY);
@@ -99,11 +95,9 @@ public class GamePanel {
             }
         }
 
-        // Особые клетки (старт/финиш)
         if (cell.isStart()) button.setBackground(new Color(144, 238, 144));
         if (cell.isEnd()) button.setBackground(new Color(255, 182, 193));
     }
-
 
     public void setCellClickListener(CellClickListener listener) {
         this.clickListener = listener;
@@ -114,5 +108,5 @@ public class GamePanel {
             clickListener.onCellClick(cell);
         }
     }
-
 }
+

@@ -2,6 +2,8 @@ package org.example;
 
 import Interfaces.ILandscapeElement;
 
+import java.util.List;
+
 public class WildGrassRoad implements ILandscapeElement {
     private int maxTurnsNearRoad = 3;
     private int currentTurnsNearRoad = 0;
@@ -23,7 +25,22 @@ public class WildGrassRoad implements ILandscapeElement {
     }
 
     @Override
-    public void update() {    }
+    public void update(List<ILandscapeElement> neighbors) {
+
+    }
+
+    @Override
+    public void onMove() {
+
+    }
+
+    @Override
+    public ILandscapeElement transform() {
+        return null;
+    }
+
+//    @Override
+//    public void update() {    }
 
     public boolean isAlive() { return this.isALive; }
 

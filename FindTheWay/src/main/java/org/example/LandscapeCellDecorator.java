@@ -171,7 +171,7 @@ public class LandscapeCellDecorator {
     private void checkWatering(List<LandscapeCellDecorator> allDecorators) {
         if (landscapeElement instanceof IWaterable) {
             boolean hasWaterSource = getNeighbors(allDecorators).stream()
-                    .anyMatch(n -> n.landscapeElement instanceof WaterElement);
+                    .anyMatch(n -> n instanceof WaterElement);
 
             if (hasWaterSource) {
                 ((IWaterable) landscapeElement).water();

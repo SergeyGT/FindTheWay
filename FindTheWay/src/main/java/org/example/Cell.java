@@ -26,6 +26,11 @@ public class Cell {
         this.landscapeType = landscapeType; // Инициализация нового поля
     }
 
+    public Cell(int po, int po1) {
+        posX=po;
+        posY=po1;
+    }
+
     public int[] getPosition() {
         return new int[] { posX, posY };
     }
