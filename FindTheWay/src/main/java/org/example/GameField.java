@@ -75,9 +75,20 @@ public class GameField {
     public void updateLandscapeElements() {
         List<LandscapeCellDecorator> toRemove = new ArrayList<>();
 
-        // Обновляем все элементы
+        // Сначала обновляем все элементы
         for (LandscapeCellDecorator decorator : landscapeDecorators) {
             decorator.update(landscapeDecorators);
+        }
+
+        // Затем обрабатываем трансформации
+        for (LandscapeCellDecorator decorator : landscapeDecorators) {
+            if (decorator.landscapeElement != null &&
+                    decorator.landscapeElement.shouldTransform()) {
+                decorator.landscapeElement.transform(decorator.cell);
+                if (decorator.landscapeElement.shouldRemoveAfterTransform()) {
+                    decorator.landscapeElement = null;
+                }
+            }
 
             if (decorator.landscapeElement == null) {
                 toRemove.add(decorator);
@@ -86,17 +97,6 @@ public class GameField {
 
         landscapeDecorators.removeAll(toRemove);
     }
-
-    public boolean canMoveCell(Cell cell) {
-        if (cell.getIsEmpty()) return false;
-
-        return landscapeDecorators.stream()
-                .filter(d -> d.cell.equals(cell))
-                .findFirst()
-                .map(decorator -> decorator.canMove())
-                .orElse(true);
-    }
-
     public void MoveCell(Cell cell) {
         Cell emptyCell = getEmptyCell();
         if (emptyCell == null || !isAdjacent(cell, emptyCell)) return;

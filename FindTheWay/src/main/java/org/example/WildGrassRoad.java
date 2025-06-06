@@ -17,7 +17,9 @@ public class WildGrassRoad implements ILandscapeElement {
     public boolean canRemove(Cell cell) { return !isALive; }
 
     @Override
-    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {}
+    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {
+        incrementTurnsNearRoad();
+    }
 
     @Override
     public boolean shouldTransform() {
@@ -29,8 +31,6 @@ public class WildGrassRoad implements ILandscapeElement {
         Direction enterDir = null;
         Direction exitDir = null;
 
-        // Логика определения направления из соседей должна быть в GameField
-        // Здесь просто пример
         if (enterDir == null) enterDir = new Direction(DirectionEnum.LEFT);
         if (exitDir == null) exitDir = new Direction(DirectionEnum.RIGHT);
 
