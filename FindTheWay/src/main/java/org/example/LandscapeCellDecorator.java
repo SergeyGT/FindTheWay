@@ -19,29 +19,34 @@ public class LandscapeCellDecorator {
 
     public boolean canMove() {
         if (landscapeElement == null) return true;
-        return landscapeElement.canMove() && !cell.getIsEmpty();
+        return landscapeElement.canMove(cell);
     }
 
     public boolean canRotate() {
-        return landscapeElement.canRotate() && !cell.getIsEmpty();
+        if (landscapeElement == null) return true;
+        return landscapeElement.canRotate(cell);
     }
 
     public boolean canRemove() {
-        return landscapeElement.canRemove() && !cell.getIsEmpty();
+        if (landscapeElement == null) return true;
+        return landscapeElement.canRemove(cell);
     }
 
-    private void checkWatering(List<LandscapeCellDecorator> allDecorators) {
-        if (landscapeElement instanceof IWaterable) {
-            boolean hasWaterSource = getNeighbors(allDecorators).stream()
-                    .anyMatch(n -> n.landscapeElement instanceof IWaterSource);
+    public void update(List<LandscapeCellDecorator> allDecorators) {
+        if (landscapeElement == null) return;
 
-            if (hasWaterSource) {
-                ((IWaterable) landscapeElement).water();
+        landscapeElement.checkWatering(allDecorators, cell);
+        landscapeElement.update(cell);
+
+        if (landscapeElement.shouldTransform()) {
+            landscapeElement.transform(cell);
+            if (landscapeElement.shouldRemoveAfterTransform()) {
+                landscapeElement = null;
             }
         }
     }
 
-    private List<LandscapeCellDecorator> getNeighbors(List<LandscapeCellDecorator> allDecorators) {
+    public List<LandscapeCellDecorator> getNeighbors(List<LandscapeCellDecorator> allDecorators) {
         List<LandscapeCellDecorator> neighbors = new ArrayList<>();
         int[] pos = this.cell.getPosition();
 
@@ -61,40 +66,5 @@ public class LandscapeCellDecorator {
         }
 
         return neighbors;
-    }
-
-    public void update(List<LandscapeCellDecorator> allDecorators) {
-        if (landscapeElement == null) return;
-
-        if (landscapeElement instanceof FlowerBed) {
-            checkWatering(allDecorators);
-        }
-
-
-        landscapeElement.update();
-
-        if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
-            System.out.println("Transforming dead FlowerBed to WildGrass at " +
-                    Arrays.toString(cell.getPosition()));
-            // Обновляем тип ландшафта клетки
-            cell.setLandscapeType("grass");
-            // Заменяем элемент на дикорастущую траву
-            this.landscapeElement = new WildGrass();
-        }
-
-        if (landscapeElement instanceof Tree && ((Tree) landscapeElement).isBurnt()) {
-            System.out.println("Transforming burnt tree to road at " +
-                    Arrays.toString(cell.getPosition()));
-
-            // Превращаем в горизонтальную дорогу
-            cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
-            cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
-            cell.setLandscapeType(null);
-            cell.setIsEmpty(false);
-            cell.setStart(false);
-            cell.setEnd(false);
-
-            this.landscapeElement = null;
-        }
     }
 }

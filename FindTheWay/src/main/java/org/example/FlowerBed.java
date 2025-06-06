@@ -1,7 +1,11 @@
 package org.example;
 
 import Interfaces.ILandscapeElement;
+import Interfaces.IWaterSource;
 import Interfaces.IWaterable;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class FlowerBed implements ILandscapeElement, IWaterable {
     private int turnsWithoutWater = 0;
@@ -10,14 +14,14 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
     private boolean wasWateredThisTurn = false;
 
     @Override
-    public boolean canMove() { return false; }
+    public boolean canMove(Cell cell) { return false; }
     @Override
-    public boolean canRotate() { return false; }
+    public boolean canRotate(Cell cell) { return false; }
     @Override
-    public boolean canRemove() { return !isAlive; }
+    public boolean canRemove(Cell cell) { return !isAlive; }
 
     @Override
-    public void update() {
+    public void update(Cell cell) {
         if (!wasWateredThisTurn) {
             turnsWithoutWater++;
             System.out.println("FlowerBed turns without water: " + turnsWithoutWater +
@@ -31,6 +35,35 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
             System.out.println("FlowerBed is properly watered");
         }
         wasWateredThisTurn = false;
+    }
+
+    @Override
+    public boolean shouldTransform() {
+        return !isAlive;
+    }
+
+    @Override
+    public void transform(Cell cell) {
+        System.out.println("Transforming dead FlowerBed to WildGrass at " +
+                Arrays.toString(cell.getPosition()));
+        cell.setLandscapeType("grass");
+    }
+
+    @Override
+    public boolean shouldRemoveAfterTransform() {
+        return false;
+    }
+
+    @Override
+    public void checkWatering(List<LandscapeCellDecorator> allDecorators, Cell cell) {
+        boolean hasWaterSource = allDecorators.stream()
+                .filter(d -> d.cell.getPosition()[0] != cell.getPosition()[0] ||
+                        d.cell.getPosition()[1] != cell.getPosition()[1])
+                .anyMatch(d -> d.landscapeElement instanceof IWaterSource);
+
+        if (hasWaterSource) {
+            water();
+        }
     }
 
     @Override
