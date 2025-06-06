@@ -1,11 +1,6 @@
 package org.example;
 
 import Interfaces.ILandscapeElement;
-import Interfaces.IWaterSource;
-import Interfaces.IWaterable;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LandscapeCellDecorator {
@@ -28,7 +23,7 @@ public class LandscapeCellDecorator {
             }
         }
     }
-    
+
 //
 //    public boolean canMove() {
 //        if (landscapeElement == null) return true;

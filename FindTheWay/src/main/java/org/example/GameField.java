@@ -56,6 +56,7 @@ public class GameField {
             }
         }
     }
+    /////------------------------------------------------------------------////////////////////////
 
     private ILandscapeElement createLandscapeElement(String landscapeType) {
         if (landscapeType == null) return null;
@@ -71,6 +72,7 @@ public class GameField {
             default: return null;
         }
     }
+    /////------------------------------------------------------------------////////////////////////
 
     public void updateLandscapeElements() {
         List<LandscapeCellDecorator> toRemove = new ArrayList<>();
@@ -101,11 +103,14 @@ public class GameField {
         Cell emptyCell = getEmptyCell();
         if (emptyCell == null || !isAdjacent(cell, emptyCell)) return;
 
+        /////------------------------------------------------------------------////////////////////////
         // Если перемещаем огонь, увеличиваем его счетчик
         landscapeDecorators.stream()
                 .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof Fire)
                 .findFirst()
                 .ifPresent(decorator -> ((Fire) decorator.landscapeElement).incrementMoveCount());
+
+        /////------------------------------------------------------------------////////////////////////
 
         Cell newEmptyCell = new Cell(
                 cell.getPosition()[0],
@@ -139,6 +144,7 @@ public class GameField {
 
         landscapeDecorators.removeIf(d -> d.cell.equals(oldCell));
 
+        /////------------------------------------------------------------------////////////////////////
         if (newCell.getLandscapeType() != null) {
             ILandscapeElement element = null;
 
@@ -154,6 +160,7 @@ public class GameField {
                 landscapeDecorators.add(new LandscapeCellDecorator(newCell, element));
             }
         }
+        /////------------------------------------------------------------------////////////////////////
     }
 
     public boolean isAdjacent(Cell a, Cell b) {
