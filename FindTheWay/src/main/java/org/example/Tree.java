@@ -17,11 +17,25 @@ public class Tree implements ILandscapeElement, IFlammable {
     public boolean canRemove(Cell cell) { return burnt; }
 
     @Override
-    public void update(Cell cell) {}
+    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {
+        long fireCount = allDecorators.stream()
+                .filter(d -> {
+                    int[] pos = d.cell.getPosition();
+                    int[] thisPos = cell.getPosition();
+                    return Math.abs(pos[0] - thisPos[0]) <= 1 &&
+                            Math.abs(pos[1] - thisPos[1]) <= 1 &&
+                            d.landscapeElement instanceof Fire;
+                })
+                .count();
+
+        if (fireCount >= 4 && !burnt) {
+            surroundByFire();
+        }
+    }
 
     @Override
     public void surroundByFire() {
-        System.out.println("Tree is now surrounded by fire!");
+        System.out.println("Дерево окружено огнем!");
         burnt = true;
     }
 

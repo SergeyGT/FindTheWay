@@ -12,7 +12,7 @@ public class WildGrass implements ILandscapeElement {
     @Override
     public boolean canRemove(Cell cell) { return true; }
     @Override
-    public void update(Cell cell) {}
+    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {}
     @Override
     public boolean shouldTransform() { return false; }
     @Override

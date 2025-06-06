@@ -9,7 +9,7 @@ public interface ILandscapeElement {
     boolean canMove(Cell cell);
     boolean canRotate(Cell cell);
     boolean canRemove(Cell cell);
-    void update(Cell cell);
+    void update(Cell cell, List<LandscapeCellDecorator> allDecorators);
     boolean shouldTransform();
     void transform(Cell cell);
     boolean shouldRemoveAfterTransform();

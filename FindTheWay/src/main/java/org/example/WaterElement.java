@@ -13,7 +13,7 @@ public class WaterElement implements ILandscapeElement, IWaterSource {
     @Override
     public boolean canRemove(Cell cell) { return false; }
     @Override
-    public void update(Cell cell) {}
+    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {}
     @Override
     public boolean shouldTransform() { return false; }
     @Override

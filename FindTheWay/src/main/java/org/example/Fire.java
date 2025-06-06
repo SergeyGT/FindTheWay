@@ -23,7 +23,7 @@ public class Fire implements ILandscapeElement {
     @Override
     public boolean canRemove(Cell cell) { return moveCount >= maxMoves; }
     @Override
-    public void update(Cell cell) {}
+    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {}
     @Override
     public boolean shouldTransform() { return moveCount >= maxMoves; }
     @Override

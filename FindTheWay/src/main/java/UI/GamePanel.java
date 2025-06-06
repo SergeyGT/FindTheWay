@@ -57,7 +57,7 @@ public class GamePanel {
                     boolean canMoveFire = field.getLandscapeDecorators().stream()
                             .filter(d -> d.cell.equals(cell))
                             .findFirst()
-                            .map(d -> d.landscapeElement instanceof Fire && ((Fire)d.landscapeElement).canMove())
+                            .map(d -> d.landscapeElement instanceof Fire && ((Fire)d.landscapeElement).canMove(d.cell))//cell
                             .orElse(true);
                     if(!canMoveFire) button.setBackground(Color.CYAN);
                     button.setEnabled(canMoveFire);

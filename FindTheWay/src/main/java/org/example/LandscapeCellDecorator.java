@@ -35,8 +35,10 @@ public class LandscapeCellDecorator {
     public void update(List<LandscapeCellDecorator> allDecorators) {
         if (landscapeElement == null) return;
 
-        landscapeElement.checkWatering(allDecorators, cell);
-        landscapeElement.update(cell);
+        //landscapeElement.checkWatering(allDecorators, cell);
+        //landscapeElement.update(cell);
+        // Вызываем update с передачей всех декораторов
+        landscapeElement.update(cell, allDecorators);
 
         if (landscapeElement.shouldTransform()) {
             landscapeElement.transform(cell);

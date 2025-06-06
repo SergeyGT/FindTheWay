@@ -17,7 +17,7 @@ public class WildGrassRoad implements ILandscapeElement {
     public boolean canRemove(Cell cell) { return !isALive; }
 
     @Override
-    public void update(Cell cell) {}
+    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {}
 
     @Override
     public boolean shouldTransform() {

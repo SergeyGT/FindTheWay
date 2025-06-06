@@ -57,10 +57,10 @@ public class GameWindow extends JFrame {
         Cell emptyCell = field.getEmptyCell();
 
         if (emptyCell != null && isAdjacent(cell, emptyCell)) {
-            if (!field.canMoveCell(cell)) {
-                JOptionPane.showMessageDialog(this, "Эту клетку нельзя перемещать!");
-                return;
-            }
+//            if (!field.canMoveCell(cell)) {
+//                JOptionPane.showMessageDialog(this, "Эту клетку нельзя перемещать!");
+//                return;
+//            }
             // Дополнительная проверка для огня
             if (cell.getLandscapeType() != null && cell.getLandscapeType().equalsIgnoreCase("fire")) {
                 // Получаем декоратор для этой клетки
@@ -71,7 +71,8 @@ public class GameWindow extends JFrame {
 
                 if (decorator != null && decorator.landscapeElement instanceof Fire) {
                     Fire fire = (Fire) decorator.landscapeElement;
-                    if (!fire.canMove()) {
+                    if (!fire.canMove(decorator.cell)) //cell
+                    {
                         JOptionPane.showMessageDialog(this, "Этот огонь уже гаснет и не может быть перемещен!");
                         return;
                     }

@@ -21,18 +21,21 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
     public boolean canRemove(Cell cell) { return !isAlive; }
 
     @Override
-    public void update(Cell cell) {
+    public void update(Cell cell,List<LandscapeCellDecorator> allDecorators) {
+        checkWatering(allDecorators, cell);
+
         if (!wasWateredThisTurn) {
             turnsWithoutWater++;
             System.out.println("FlowerBed turns without water: " + turnsWithoutWater +
                     "/" + maxTurnsWithoutWater);
 
-            if (turnsWithoutWater >= maxTurnsWithoutWater) {
+            if (turnsWithoutWater > maxTurnsWithoutWater) {
                 isAlive = false;
                 System.out.println("FlowerBed has died and will turn into wild grass!");
             }
         } else {
             System.out.println("FlowerBed is properly watered");
+            turnsWithoutWater = 0; // Сбрасываем счетчик при поливе
         }
         wasWateredThisTurn = false;
     }
@@ -57,9 +60,13 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
     @Override
     public void checkWatering(List<LandscapeCellDecorator> allDecorators, Cell cell) {
         boolean hasWaterSource = allDecorators.stream()
-                .filter(d -> d.cell.getPosition()[0] != cell.getPosition()[0] ||
-                        d.cell.getPosition()[1] != cell.getPosition()[1])
-                .anyMatch(d -> d.landscapeElement instanceof IWaterSource);
+                .anyMatch(d -> {
+                    int[] pos = d.cell.getPosition();
+                    int[] thisPos = cell.getPosition();
+                    return Math.abs(pos[0] - thisPos[0]) <= 1 &&
+                            Math.abs(pos[1] - thisPos[1]) <= 1 &&
+                            d.landscapeElement instanceof IWaterSource;
+                });
 
         if (hasWaterSource) {
             water();
