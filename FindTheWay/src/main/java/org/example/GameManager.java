@@ -58,7 +58,7 @@ public class GameManager {
 
     private void CreateField(){
         _field = new GameField(2, 2);
-        _field.loadFromLevel("C:\\JavaProjects\\FindTheWay\\FindTheWay\\FindTheWay\\src\\main\\resources\\levels\\levelWildGrassRoad.json");
+        _field.loadFromLevel("C:\\JavaProjects\\FindTheWay\\FindTheWay\\FindTheWay\\src\\main\\resources\\levels\\levelFlowerBedTest.json");
         _field.AddSubscribers(_maze);
     }
 

@@ -24,7 +24,7 @@ public class WildGrass implements ILandscapeElement {
 
     @Override
     public ILandscapeElement transform() {
-        return null;
+        return this;
     }
 //
 //    @Override
