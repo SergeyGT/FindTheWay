@@ -2,6 +2,8 @@ package org.example;
 
 import Interfaces.ILandscapeElement;
 
+import java.util.List;
+
 public class WildGrass implements ILandscapeElement {
     @Override
     public boolean canMove() { return true; }
@@ -9,6 +11,22 @@ public class WildGrass implements ILandscapeElement {
     public boolean canRotate() { return true; }
     @Override
     public boolean canRemove() { return true; }
+
     @Override
-    public void update() {}
+    public void update(List<ILandscapeElement> neighbors) {
+
+    }
+
+    @Override
+    public void onMove() {
+
+    }
+
+    @Override
+    public ILandscapeElement transform() {
+        return null;
+    }
+//
+//    @Override
+//    public void update() {}
 }

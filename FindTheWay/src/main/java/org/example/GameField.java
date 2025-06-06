@@ -84,83 +84,117 @@ public class GameField {
                 return null; // Игнорируем неизвестные типы
         }
     }
+//
+//    public void updateLandscapeElements() {
+//        List<LandscapeCellDecorator> toRemove = new ArrayList<>();
+//
+//
+//        for (LandscapeCellDecorator decorator : landscapeDecorators) {
+//            if (decorator.landscapeElement instanceof Tree) {
+//                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
+//                int fireCount = (int) neighbors.stream()
+//                        .filter(n -> n.landscapeElement instanceof Fire)
+//                        .count();
+//
+//                if (fireCount >= 4) {
+//                    ((Tree) decorator.landscapeElement).surroundByFire();
+//                    System.out.println("Tree at " + Arrays.toString(decorator.cell.getPosition()) +
+//                            " surrounded by " + fireCount + " fires");
+//                }
+//            }
+//        }
+//
+//        for (LandscapeCellDecorator decorator : landscapeDecorators) {
+//            if (decorator.landscapeElement instanceof WildGrassRoad) {
+//                WildGrassRoad grassRoad = (WildGrassRoad) decorator.landscapeElement;
+//                List<Cell> neighbors = getNeighborCells(decorator.cell);
+//
+//                boolean hasRoadNeighbor = neighbors.stream()
+//                        .anyMatch(n -> n.getDirectionEnter() != null ||
+//                                n.getDirectionExit() != null);
+//
+//                if (hasRoadNeighbor) {
+//                    grassRoad.incrementTurnsNearRoad();
+//
+//                    if (!grassRoad.isAlive()) {
+//                        Direction enterDir = null;
+//                        Direction exitDir = null;
+//
+//                        for (Cell neighbor : neighbors) {
+//                            if (neighbor.getDirectionEnter() != null) {
+//                                enterDir = neighbor.getDirectionEnter();
+//                            }
+//                            if (neighbor.getDirectionExit() != null) {
+//                                exitDir = neighbor.getDirectionExit();
+//                            }
+//                            if (enterDir != null || exitDir != null) break;
+//                        }
+//
+//                        if (enterDir == null) enterDir = new Direction(DirectionEnum.LEFT);
+//                        if (exitDir == null) exitDir = new Direction(DirectionEnum.RIGHT);
+//
+//                        decorator.cell.set_directionEnter(enterDir);
+//                        decorator.cell.set_directionExit(exitDir);
+//                        decorator.cell.setLandscapeType(null);
+//                        decorator.cell.setIsEmpty(false);
+//                        decorator.landscapeElement = null;
+//                    }
+//                } else {
+//                    grassRoad.resetTurnsNearRoad();
+//                }
+//            }
+//        }
+//
+//        for (LandscapeCellDecorator decorator : landscapeDecorators) {
+//            decorator.update(landscapeDecorators);
+//            if (decorator.landscapeElement == null) {
+//                toRemove.add(decorator);
+//                continue;
+//            }
+//
+//
+//            if (decorator.landscapeElement instanceof Fire && decorator.landscapeElement.canRemove()) {
+//                decorator.cell.setLandscapeType("BURNT");
+//                decorator.landscapeElement = new BurntFire();
+//                decorator.cell.setIsEmpty(false);
+//            }
+//        }
+//
+//        landscapeDecorators.removeAll(toRemove);
+//    }
 
     public void updateLandscapeElements() {
         List<LandscapeCellDecorator> toRemove = new ArrayList<>();
 
-
-        for (LandscapeCellDecorator decorator : landscapeDecorators) {
-            if (decorator.landscapeElement instanceof Tree) {
-                List<LandscapeCellDecorator> neighbors = getNeighbors(decorator);
-                int fireCount = (int) neighbors.stream()
-                        .filter(n -> n.landscapeElement instanceof Fire)
-                        .count();
-
-                if (fireCount >= 4) {
-                    ((Tree) decorator.landscapeElement).surroundByFire();
-                    System.out.println("Tree at " + Arrays.toString(decorator.cell.getPosition()) +
-                            " surrounded by " + fireCount + " fires");
-                }
-            }
-        }
-
-        for (LandscapeCellDecorator decorator : landscapeDecorators) {
-            if (decorator.landscapeElement instanceof WildGrassRoad) {
-                WildGrassRoad grassRoad = (WildGrassRoad) decorator.landscapeElement;
-                List<Cell> neighbors = getNeighborCells(decorator.cell);
-
-                boolean hasRoadNeighbor = neighbors.stream()
-                        .anyMatch(n -> n.getDirectionEnter() != null ||
-                                n.getDirectionExit() != null);
-
-                if (hasRoadNeighbor) {
-                    grassRoad.incrementTurnsNearRoad();
-
-                    if (!grassRoad.isAlive()) {
-                        Direction enterDir = null;
-                        Direction exitDir = null;
-
-                        for (Cell neighbor : neighbors) {
-                            if (neighbor.getDirectionEnter() != null) {
-                                enterDir = neighbor.getDirectionEnter();
-                            }
-                            if (neighbor.getDirectionExit() != null) {
-                                exitDir = neighbor.getDirectionExit();
-                            }
-                            if (enterDir != null || exitDir != null) break;
-                        }
-
-                        if (enterDir == null) enterDir = new Direction(DirectionEnum.LEFT);
-                        if (exitDir == null) exitDir = new Direction(DirectionEnum.RIGHT);
-
-                        decorator.cell.set_directionEnter(enterDir);
-                        decorator.cell.set_directionExit(exitDir);
-                        decorator.cell.setLandscapeType(null);
-                        decorator.cell.setIsEmpty(false);
-                        decorator.landscapeElement = null;
-                    }
-                } else {
-                    grassRoad.resetTurnsNearRoad();
-                }
-            }
-        }
-
         for (LandscapeCellDecorator decorator : landscapeDecorators) {
             decorator.update(landscapeDecorators);
-            if (decorator.landscapeElement == null) {
+
+            if (decorator.landscapeElement == null ||
+                    decorator.landscapeElement.canRemove()) {
                 toRemove.add(decorator);
-                continue;
-            }
-
-
-            if (decorator.landscapeElement instanceof Fire && decorator.landscapeElement.canRemove()) {
-                decorator.cell.setLandscapeType("BURNT");
-                decorator.landscapeElement = new BurntFire();
-                decorator.cell.setIsEmpty(false);
             }
         }
 
         landscapeDecorators.removeAll(toRemove);
+    }
+
+    public void MoveCell(Cell cell) {
+        Cell emptyCell = getEmptyCell();
+        if (emptyCell == null || !isAdjacent(cell, emptyCell)) return;
+
+        // Обработка перемещения через декоратор
+        LandscapeCellDecorator decorator = getDecoratorForCell(cell);
+        if (decorator != null) {
+            decorator.handleMove();
+        }
+
+        // Создание новых клеток и обновление поля
+        Cell newEmptyCell = createEmptyCell(cell);
+        Cell newMovedCell = createMovedCell(emptyCell, cell);
+
+        updateCells(cell, emptyCell, newEmptyCell, newMovedCell);
+        updateDecoratorsAfterMove(cell, newMovedCell);
+        NotifySubscribers();
     }
 
     public boolean canMoveCell(Cell cell) {
@@ -204,60 +238,60 @@ public class GameField {
 
         return neighbors;
     }
-
-
-    public void MoveCell(Cell cell){
-        Cell emptyCell = getEmptyCell();
-        if (emptyCell == null || !isAdjacent(cell, emptyCell)) return;
-
-        System.out.println("До перемещения:");
-        System.out.println("Кликнутая: " + cell + " на " + Arrays.toString(cell.getPosition()));
-        System.out.println("Пустая: " + emptyCell + " на " + Arrays.toString(emptyCell.getPosition()));
-
-        // Проверяем, перемещаем ли мы огонь
-        boolean isMovingFire = cell.getLandscapeType() != null &&
-                cell.getLandscapeType().equalsIgnoreCase("fire");
-
-        // Если перемещаем огонь, увеличиваем его счетчик
-        if (isMovingFire) {
-            landscapeDecorators.stream()
-                    .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof Fire)
-                    .findFirst()
-                    .ifPresent(decorator -> {
-                        ((Fire) decorator.landscapeElement).incrementMoveCount();
-                    });
-        }
-
-        Cell newEmptyCell = new Cell(
-                cell.getPosition()[0],
-                cell.getPosition()[1],
-                true, false, false, null, null,null
-        );
-
-        Cell newMovedCell = new Cell(
-                emptyCell.getPosition()[0],
-                emptyCell.getPosition()[1],
-                false,
-                cell.isStart(),
-                cell.isEnd(),
-                cell.getDirectionEnter(),
-                cell.getDirectionExit(),
-                cell.getLandscapeType()
-        );
-
-        // Заменяем клетки в сетке
-        _cells.get(cell.getPosition()[1]).set(cell.getPosition()[0], newEmptyCell);
-        _cells.get(emptyCell.getPosition()[1]).set(emptyCell.getPosition()[0], newMovedCell);
-
-        System.out.println("После перемещения:");
-        System.out.println("Новая пустая: " + newEmptyCell + " на " +
-                Arrays.toString(newEmptyCell.getPosition()));
-        System.out.println("Новая перемещенная: " + newMovedCell + " на " +
-                Arrays.toString(newMovedCell.getPosition()));
-
-        updateDecoratorsAfterMove(cell, newMovedCell);
-        NotifySubscribers();
-    }
+//
+//
+//    public void MoveCell(Cell cell){
+//        Cell emptyCell = getEmptyCell();
+//        if (emptyCell == null || !isAdjacent(cell, emptyCell)) return;
+//
+//        System.out.println("До перемещения:");
+//        System.out.println("Кликнутая: " + cell + " на " + Arrays.toString(cell.getPosition()));
+//        System.out.println("Пустая: " + emptyCell + " на " + Arrays.toString(emptyCell.getPosition()));
+//
+//        // Проверяем, перемещаем ли мы огонь
+//        boolean isMovingFire = cell.getLandscapeType() != null &&
+//                cell.getLandscapeType().equalsIgnoreCase("fire");
+//
+//        // Если перемещаем огонь, увеличиваем его счетчик
+//        if (isMovingFire) {
+//            landscapeDecorators.stream()
+//                    .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof Fire)
+//                    .findFirst()
+//                    .ifPresent(decorator -> {
+//                        ((Fire) decorator.landscapeElement).incrementMoveCount();
+//                    });
+//        }
+//
+//        Cell newEmptyCell = new Cell(
+//                cell.getPosition()[0],
+//                cell.getPosition()[1],
+//                true, false, false, null, null,null
+//        );
+//
+//        Cell newMovedCell = new Cell(
+//                emptyCell.getPosition()[0],
+//                emptyCell.getPosition()[1],
+//                false,
+//                cell.isStart(),
+//                cell.isEnd(),
+//                cell.getDirectionEnter(),
+//                cell.getDirectionExit(),
+//                cell.getLandscapeType()
+//        );
+//
+//        // Заменяем клетки в сетке
+//        _cells.get(cell.getPosition()[1]).set(cell.getPosition()[0], newEmptyCell);
+//        _cells.get(emptyCell.getPosition()[1]).set(emptyCell.getPosition()[0], newMovedCell);
+//
+//        System.out.println("После перемещения:");
+//        System.out.println("Новая пустая: " + newEmptyCell + " на " +
+//                Arrays.toString(newEmptyCell.getPosition()));
+//        System.out.println("Новая перемещенная: " + newMovedCell + " на " +
+//                Arrays.toString(newMovedCell.getPosition()));
+//
+//        updateDecoratorsAfterMove(cell, newMovedCell);
+//        NotifySubscribers();
+//    }
 
 
 
