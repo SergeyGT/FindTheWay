@@ -13,7 +13,7 @@ public class Cell {
     private boolean _isEmpty;
     private boolean isStart;
     private boolean isEnd;
-    private String landscapeType; // Новое поле
+    private String landscapeType;
 
     public Cell(int posX, int posY, boolean isEmpty, boolean isStart, boolean isEnd, Direction directionEnter, Direction directionExit, String landscapeType) {
         this.posX = posX;
