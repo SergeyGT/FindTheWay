@@ -1,103 +1,4 @@
 package org.example;
-//
-//import Interfaces.ILandscapeElement;
-//import Interfaces.IWaterSource;
-//import Interfaces.IWaterable;
-//
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-//
-//public class LandscapeCellDecorator {
-//    public final Cell cell;
-//    public ILandscapeElement landscapeElement;
-//
-//    public LandscapeCellDecorator(Cell cell, ILandscapeElement element) {
-//        this.cell = cell;
-//        this.landscapeElement = element;
-//    }
-//
-//    public boolean canMove() {
-//        if (landscapeElement == null) return true;
-//        return landscapeElement.canMove() && !cell.getIsEmpty();
-//    }
-//
-//    public boolean canRotate() {
-//        return landscapeElement.canRotate() && !cell.getIsEmpty();
-//    }
-//
-//    public boolean canRemove() {
-//        return landscapeElement.canRemove() && !cell.getIsEmpty();
-//    }
-//
-//    private void checkWatering(List<LandscapeCellDecorator> allDecorators) {
-//        if (landscapeElement instanceof IWaterable) {
-//            boolean hasWaterSource = getNeighbors(allDecorators).stream()
-//                    .anyMatch(n -> n.landscapeElement instanceof IWaterSource);
-//
-//            if (hasWaterSource) {
-//                ((IWaterable) landscapeElement).water();
-//            }
-//        }
-//    }
-//
-//    private List<LandscapeCellDecorator> getNeighbors(List<LandscapeCellDecorator> allDecorators) {
-//        List<LandscapeCellDecorator> neighbors = new ArrayList<>();
-//        int[] pos = this.cell.getPosition();
-//
-//        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-//
-//        for (int[] dir : directions) {
-//            int nx = pos[0] + dir[0];
-//            int ny = pos[1] + dir[1];
-//
-//            allDecorators.stream()
-//                    .filter(d -> {
-//                        int[] neighborPos = d.cell.getPosition();
-//                        return neighborPos[0] == nx && neighborPos[1] == ny;
-//                    })
-//                    .findFirst()
-//                    .ifPresent(neighbors::add);
-//        }
-//
-//        return neighbors;
-//    }
-//
-//    public void update(List<LandscapeCellDecorator> allDecorators) {
-//        if (landscapeElement == null) return;
-//
-//        if (landscapeElement instanceof FlowerBed) {
-//            checkWatering(allDecorators);
-//        }
-//
-//
-//        landscapeElement.update();
-//
-//        if (landscapeElement instanceof FlowerBed && !((FlowerBed) landscapeElement).isAlive()) {
-//            System.out.println("Transforming dead FlowerBed to WildGrass at " +
-//                    Arrays.toString(cell.getPosition()));
-//            // Обновляем тип ландшафта клетки
-//            cell.setLandscapeType("grass");
-//            // Заменяем элемент на дикорастущую траву
-//            this.landscapeElement = new WildGrass();
-//        }
-//
-//        if (landscapeElement instanceof Tree && ((Tree) landscapeElement).isBurnt()) {
-//            System.out.println("Transforming burnt tree to road at " +
-//                    Arrays.toString(cell.getPosition()));
-//
-//            // Превращаем в горизонтальную дорогу
-//            cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
-//            cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
-//            cell.setLandscapeType(null);
-//            cell.setIsEmpty(false);
-//            cell.setStart(false);
-//            cell.setEnd(false);
-//
-//            this.landscapeElement = null;
-//        }
-//    }
-//}
 
 import Interfaces.ILandscapeElement;
 import Interfaces.IWaterable;
@@ -141,7 +42,7 @@ public class LandscapeCellDecorator {
         ILandscapeElement transformed = landscapeElement.transform();
         if (transformed != landscapeElement) {
             if (transformed == null) {
-                transformToRoad();
+                transformToRoad(); // ← Добавляем вызов
             } else {
                 landscapeElement = transformed;
                 updateCellType();
@@ -150,6 +51,11 @@ public class LandscapeCellDecorator {
     }
 
     private void transformToRoad() {
+//        if (landscapeElement instanceof Fire) {
+//            cell.setLandscapeType("burnt");
+//        } else {
+//            cell.setLandscapeType(null); // или "road", если есть такой тип
+//        }
         cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
         cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
         cell.setLandscapeType(null);
@@ -164,8 +70,15 @@ public class LandscapeCellDecorator {
             cell.setLandscapeType("grass");
         } else if (landscapeElement instanceof BurntFire) {
             cell.setLandscapeType("burnt");
+        }else if (landscapeElement instanceof FlowerBed) {
+            cell.setLandscapeType("flowerbed");
+        } else if (landscapeElement instanceof WaterElement) {
+            cell.setLandscapeType("water");
+        } else if (landscapeElement instanceof Fire) {
+            cell.setLandscapeType("fire");
+        }else if (landscapeElement instanceof WildGrassRoad) {
+            cell.setLandscapeType("grassroad");
         }
-        // другие типы...
     }
 
     private void checkWatering(List<LandscapeCellDecorator> allDecorators) {
@@ -188,13 +101,22 @@ public class LandscapeCellDecorator {
             int nx = pos[0] + dir[0];
             int ny = pos[1] + dir[1];
 
-            allDecorators.stream()
+            // Ищем декоратор, который находится в соседней позиции
+            LandscapeCellDecorator neighborDecorator = allDecorators.stream()
                     .filter(d -> {
                         int[] neighborPos = d.cell.getPosition();
                         return neighborPos[0] == nx && neighborPos[1] == ny;
                     })
                     .findFirst()
-                    .ifPresent(d -> neighbors.add(d.landscapeElement));
+                    .orElse(null);
+
+            if (neighborDecorator != null) {
+                // Добавляем элемент соседа (не null)
+                neighbors.add(neighborDecorator.landscapeElement);
+            } else {
+                // Если декоратора нет — значит там дорога (null)
+                neighbors.add(null);
+            }
         }
 
         return neighbors;

@@ -21,7 +21,7 @@ public class BurntFire implements ILandscapeElement {
 
     @Override
     public ILandscapeElement transform() {
-        return null;
+        return this;
     }
 
    // @Override public void update() {}

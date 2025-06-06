@@ -65,11 +65,17 @@ public class LandscapeManager {
         if (to.getLandscapeType() != null) {
             ILandscapeElement newElement = null;
 
-            if (to.getLandscapeType().equalsIgnoreCase("fire") &&
-                    oldDecorator != null &&
-                    oldDecorator.landscapeElement instanceof Fire) {
-                newElement = ((Fire) oldDecorator.landscapeElement).copy();
+            // Особый случай для огня - сохраняем его состояние при перемещении
+            if (to.getLandscapeType().equalsIgnoreCase("fire")) {
+                if (oldDecorator != null && oldDecorator.landscapeElement instanceof Fire) {
+                    // Копируем текущее состояние огня
+                    newElement = ((Fire) oldDecorator.landscapeElement).copy();
+                } else {
+                    // Создаем новый огонь с начальным состоянием
+                    newElement = LandscapeFactory.create(to.getLandscapeType());
+                }
             } else {
+                // Для других элементов просто создаем новый
                 newElement = LandscapeFactory.create(to.getLandscapeType());
             }
 

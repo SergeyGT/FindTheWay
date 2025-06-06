@@ -1,13 +1,12 @@
 package org.example;
 
 import Interfaces.ILandscapeElement;
-
 import java.util.List;
 
 public class WildGrassRoad implements ILandscapeElement {
-    private int maxTurnsNearRoad = 3;
+    private final int maxTurnsNearRoad = 3;
     private int currentTurnsNearRoad = 0;
-    private boolean isALive = true;
+    private boolean isAlive = true;
 
     @Override
     public boolean canMove() {
@@ -21,41 +20,30 @@ public class WildGrassRoad implements ILandscapeElement {
 
     @Override
     public boolean canRemove() {
-        return !isALive;
+        return !isAlive;
     }
 
     @Override
     public void update(List<ILandscapeElement> neighbors) {
+        boolean nearRoad = neighbors.stream().anyMatch(e -> e == null);
 
+        if (nearRoad) {
+            currentTurnsNearRoad++;
+            if (currentTurnsNearRoad >= maxTurnsNearRoad) {
+                isAlive = false; // "умирает", чтобы в transform вернуть null (превращение в дорогу)
+            }
+        } else {
+            currentTurnsNearRoad = 0; // сброс, если дороги рядом нет
+        }
     }
 
     @Override
     public void onMove() {
-
+        // Нет действия при движении
     }
 
     @Override
     public ILandscapeElement transform() {
-        return null;
-    }
-
-//    @Override
-//    public void update() {    }
-
-    public boolean isAlive() { return this.isALive; }
-
-    public int getTurnsNearRoad() { return this.currentTurnsNearRoad; }
-
-    public void incrementTurnsNearRoad() {
-        if (isALive && currentTurnsNearRoad < maxTurnsNearRoad) {
-            currentTurnsNearRoad++;
-            if (currentTurnsNearRoad >= maxTurnsNearRoad) {
-                isALive = false;
-            }
-        }
-    }
-
-    public void resetTurnsNearRoad() {
-        currentTurnsNearRoad = 0;
+        return isAlive ? this : null; // превращается в дорогу
     }
 }

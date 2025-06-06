@@ -25,14 +25,16 @@ public class Fire implements ILandscapeElement {
 
     @Override
     public void update(List<ILandscapeElement> neighbors) {
-        // Огонь не зависит от соседей
+        if (moveCount < maxMoves) {
+            moveCount++;
+        }
+        System.out.println("Огонь обновлён: " + moveCount + "/" + maxMoves);
     }
 
     @Override
     public void onMove() {
-        if (moveCount < maxMoves) {
-            moveCount++;
-        }
+        // можно оставить пустым или логировать факт перемещения
+        System.out.println("Fire was moved");
     }
     // Конструктор по умолчанию
     public Fire() {

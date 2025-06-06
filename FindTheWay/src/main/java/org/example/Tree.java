@@ -52,6 +52,8 @@ private boolean isBurnt = false;
                 .filter(e -> e instanceof Fire)
                 .count();
 
+        System.out.println(fireCount);
+
         if (fireCount >= 4) {
             isBurnt = true;
         }
