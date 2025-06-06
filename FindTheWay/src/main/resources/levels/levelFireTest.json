@@ -46,9 +46,9 @@
       "isEmpty": false,
       "isStart": false,
       "isEnd": false,
-      "directionEnter": "RIGHT",
+      "directionEnter": "LEFT",
       "directionExit": "RIGHT",
-      "landscapeType": "FIRE"
+      "landscapeType": null
     }
   ],
   [
@@ -98,9 +98,9 @@
       "isEmpty": false,
       "isStart": false,
       "isEnd": false,
-      "directionEnter": "UP",
+      "directionEnter": "LEFT",
       "directionExit": "LEFT",
-      "landscapeType": null
+      "landscapeType": "FIRE"
     }
   ],
   [

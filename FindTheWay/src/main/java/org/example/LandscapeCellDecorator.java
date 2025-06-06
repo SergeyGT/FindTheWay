@@ -51,11 +51,6 @@ public class LandscapeCellDecorator {
     }
 
     private void transformToRoad() {
-//        if (landscapeElement instanceof Fire) {
-//            cell.setLandscapeType("burnt");
-//        } else {
-//            cell.setLandscapeType(null); // или "road", если есть такой тип
-//        }
         cell.set_directionEnter(new Direction(DirectionEnum.LEFT));
         cell.set_directionExit(new Direction(DirectionEnum.RIGHT));
         cell.setLandscapeType(null);
@@ -66,18 +61,8 @@ public class LandscapeCellDecorator {
     }
 
     private void updateCellType() {
-        if (landscapeElement instanceof WildGrass) {
-            cell.setLandscapeType("grass");
-        } else if (landscapeElement instanceof BurntFire) {
-            cell.setLandscapeType("burnt");
-        }else if (landscapeElement instanceof FlowerBed) {
-            cell.setLandscapeType("flowerbed");
-        } else if (landscapeElement instanceof WaterElement) {
-            cell.setLandscapeType("water");
-        } else if (landscapeElement instanceof Fire) {
-            cell.setLandscapeType("fire");
-        }else if (landscapeElement instanceof WildGrassRoad) {
-            cell.setLandscapeType("grassroad");
+        if (landscapeElement != null) {
+            cell.setLandscapeType(landscapeElement.getLandscapeType());
         }
     }
 

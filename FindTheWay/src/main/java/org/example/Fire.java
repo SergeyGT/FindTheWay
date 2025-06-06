@@ -53,4 +53,9 @@ public class Fire implements ILandscapeElement {
     public ILandscapeElement transform() {
         return canRemove() ? new BurntFire() : this;
     }
+
+    @Override
+    public String getLandscapeType() {
+        return "fire";
+    }
 }

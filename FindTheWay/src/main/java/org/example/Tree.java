@@ -6,29 +6,6 @@ import Interfaces.ILandscapeElement;
 import java.util.List;
 
 public class Tree implements ILandscapeElement {
-//    private boolean burnt = false;
-//
-//    @Override
-//    public boolean canMove() { return true; }
-//    @Override
-//    public boolean canRotate() { return true; }
-//    @Override
-//    public boolean canRemove() { return burnt; }
-//
-//    @Override
-//    public void update() {
-//    }
-//
-//    @Override
-//    public void surroundByFire() {
-//        System.out.println("Tree is now surrounded by fire!");
-//        burnt = true;
-//    }
-//
-//    @Override
-//    public boolean isBurnt() {
-//        return burnt;
-//    }
 private boolean isBurnt = false;
 
     @Override
@@ -71,5 +48,10 @@ private boolean isBurnt = false;
 
     public boolean isBurnt() {
         return isBurnt;
+    }
+
+    @Override
+    public String getLandscapeType() {
+        return "tree";
     }
 }

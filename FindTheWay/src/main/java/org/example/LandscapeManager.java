@@ -35,11 +35,12 @@ public class LandscapeManager {
     }
 
     public void handleMove(Cell cell, Cell target) {
+        if (cell.equals(target)) return;
+
         LandscapeCellDecorator decorator = getDecorator(cell);
         if (decorator != null) {
-            decorator.handleMove();
+            updateAfterMove(cell, target, decorator);
         }
-        updateAfterMove(cell, target, decorator);
     }
 
     public boolean canMove(Cell cell) {
@@ -60,25 +61,17 @@ public class LandscapeManager {
     }
 
     public void updateAfterMove(Cell from, Cell to, LandscapeCellDecorator oldDecorator) {
+
         decorators.removeIf(d -> d.cell.equals(from));
 
-        if (to.getLandscapeType() != null) {
-            ILandscapeElement newElement = null;
-
-            // Особый случай для огня - сохраняем его состояние при перемещении
-            if (to.getLandscapeType().equalsIgnoreCase("fire")) {
-                if (oldDecorator != null && oldDecorator.landscapeElement instanceof Fire) {
-                    // Копируем текущее состояние огня
-                    newElement = ((Fire) oldDecorator.landscapeElement).copy();
-                } else {
-                    // Создаем новый огонь с начальным состоянием
-                    newElement = LandscapeFactory.create(to.getLandscapeType());
-                }
-            } else {
-                // Для других элементов просто создаем новый
-                newElement = LandscapeFactory.create(to.getLandscapeType());
-            }
-
+        if (oldDecorator != null) {
+            // Вызываем handleMove только при реальном перемещении
+            oldDecorator.handleMove();
+            // Перемещаем существующий элемент
+            decorators.add(new LandscapeCellDecorator(to, oldDecorator.landscapeElement));
+        } else if (to.getLandscapeType() != null) {
+            // Если элемента не было (редкий случай) — создаём новый
+            ILandscapeElement newElement = LandscapeFactory.create(to.getLandscapeType());
             if (newElement != null) {
                 decorators.add(new LandscapeCellDecorator(to, newElement));
             }
@@ -88,4 +81,6 @@ public class LandscapeManager {
     public List<LandscapeCellDecorator> getDecorators() {
         return decorators;
     }
+
+
 }

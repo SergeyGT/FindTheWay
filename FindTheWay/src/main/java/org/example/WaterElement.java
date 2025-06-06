@@ -27,7 +27,9 @@ public class WaterElement implements ILandscapeElement, IWaterSource {
     public ILandscapeElement transform() {
         return this;
     }
-//
-//    @Override
-//    public void update() {}
+
+    @Override
+    public String getLandscapeType() {
+        return "water";
+    }
 }

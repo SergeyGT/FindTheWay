@@ -26,7 +26,9 @@ public class WildGrass implements ILandscapeElement {
     public ILandscapeElement transform() {
         return this;
     }
-//
-//    @Override
-//    public void update() {}
+
+    @Override
+    public String getLandscapeType() {
+        return "grass";
+    }
 }

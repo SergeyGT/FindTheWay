@@ -82,11 +82,6 @@ public class GameField {
         newCell.setIsEmpty(true);
         return newCell;
     }
-//
-//    public boolean canMoveCell(Cell cell) {
-//        if (cell.getIsEmpty()) return false;
-//        return landscapeManager.canMove(cell);
-//    }
 
     public boolean isAdjacent(Cell a, Cell b) {
         int[] posA = a.getPosition();
@@ -124,23 +119,5 @@ public class GameField {
         for(IGameFieldListener obj : _subscribers){
             obj.CellMoved(_cells);
         }
-    }
-
-    private List<Cell> getNeighborCells(Cell cell) {
-        List<Cell> neighbors = new ArrayList<>();
-        int[] pos = cell.getPosition();
-        int width = this.getWidth();
-        int height = this.getHeight();
-
-        int[][] directions = {{0,1}, {1,0}, {0,-1}, {-1,0}};
-        for (int[] dir : directions) {
-            int nx = pos[0] + dir[0];
-            int ny = pos[1] + dir[1];
-
-            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                neighbors.add(this.getСells().get(ny).get(nx));
-            }
-        }
-        return neighbors;
     }
 }

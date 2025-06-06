@@ -24,5 +24,9 @@ public class BurntFire implements ILandscapeElement {
         return this;
     }
 
-   // @Override public void update() {}
+    @Override
+    public String getLandscapeType() {
+        return "burnt";
+    }
+
 }

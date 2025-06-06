@@ -9,4 +9,5 @@ public interface ILandscapeElement {
     void update(List<ILandscapeElement> neighbors);
     void onMove();
     ILandscapeElement transform();
+    String getLandscapeType();
 }

@@ -46,4 +46,9 @@ public class WildGrassRoad implements ILandscapeElement {
     public ILandscapeElement transform() {
         return isAlive ? this : null; // превращается в дорогу
     }
+
+    @Override
+    public String getLandscapeType() {
+        return "grassroad";
+    }
 }
