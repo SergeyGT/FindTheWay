@@ -89,6 +89,9 @@ public class GamePanel {
                 case "water":
                     button.setBackground(Color.BLUE);
                     break;
+                case "grassroad":
+                    button.setBackground(new Color(1,52,32));
+                    break;
                 case "burnt":
                     button.setBackground(Color.DARK_GRAY);
                     button.setEnabled(false);

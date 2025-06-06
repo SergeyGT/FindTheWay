@@ -78,6 +78,8 @@ public class GameField {
                 return new WaterElement();
             case "burnt":
                 return new BurntFire();
+            case "grassroad":
+                return new WildGrassRoad();
             default:
                 return null; // Игнорируем неизвестные типы
         }
@@ -98,6 +100,47 @@ public class GameField {
                     ((Tree) decorator.landscapeElement).surroundByFire();
                     System.out.println("Tree at " + Arrays.toString(decorator.cell.getPosition()) +
                             " surrounded by " + fireCount + " fires");
+                }
+            }
+        }
+
+        for (LandscapeCellDecorator decorator : landscapeDecorators) {
+            if (decorator.landscapeElement instanceof WildGrassRoad) {
+                WildGrassRoad grassRoad = (WildGrassRoad) decorator.landscapeElement;
+                List<Cell> neighbors = getNeighborCells(decorator.cell);
+
+                boolean hasRoadNeighbor = neighbors.stream()
+                        .anyMatch(n -> n.getDirectionEnter() != null ||
+                                n.getDirectionExit() != null);
+
+                if (hasRoadNeighbor) {
+                    grassRoad.incrementTurnsNearRoad();
+
+                    if (!grassRoad.isAlive()) {
+                        Direction enterDir = null;
+                        Direction exitDir = null;
+
+                        for (Cell neighbor : neighbors) {
+                            if (neighbor.getDirectionEnter() != null) {
+                                enterDir = neighbor.getDirectionEnter();
+                            }
+                            if (neighbor.getDirectionExit() != null) {
+                                exitDir = neighbor.getDirectionExit();
+                            }
+                            if (enterDir != null || exitDir != null) break;
+                        }
+
+                        if (enterDir == null) enterDir = new Direction(DirectionEnum.LEFT);
+                        if (exitDir == null) exitDir = new Direction(DirectionEnum.RIGHT);
+
+                        decorator.cell.set_directionEnter(enterDir);
+                        decorator.cell.set_directionExit(exitDir);
+                        decorator.cell.setLandscapeType(null);
+                        decorator.cell.setIsEmpty(false);
+                        decorator.landscapeElement = null;
+                    }
+                } else {
+                    grassRoad.resetTurnsNearRoad();
                 }
             }
         }
