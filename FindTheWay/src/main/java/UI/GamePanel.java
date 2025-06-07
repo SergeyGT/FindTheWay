@@ -30,7 +30,7 @@ public class GamePanel {
                 Cell cell = field.getСells().get(y).get(x);
                 JButton button = buttonFactory.createCellButton(cell, this::handleCellClick);
 
-                updateButtonAppearance(button, cell, field);
+                updateButtonAppearance(button, cell);
                 //decorateButtonWithLandscape(button, cell, field);
 
                 panel.add(button);
@@ -41,7 +41,7 @@ public class GamePanel {
         panel.repaint();
     }
 
-    private void updateButtonAppearance(JButton button, Cell cell, GameField field) {
+    private void updateButtonAppearance(JButton button, Cell cell) {
         // Сброс к базовому состоянию
         button.setBackground(Color.WHITE);
 
@@ -53,35 +53,35 @@ public class GamePanel {
                     break;
                 case "fire":
                     button.setBackground(Color.RED);
-                    // Проверяем, можно ли перемещать этот огонь
-                    boolean canMoveFire = field.getLandscapeDecorators().stream()
-                            .filter(d -> d.cell.equals(cell))
-                            .findFirst()
-                            .map(d -> d.landscapeElement instanceof Fire && ((Fire)d.landscapeElement).canMove(d.cell))//cell
-                            .orElse(true);
-                    if(!canMoveFire) button.setBackground(Color.CYAN);
-                    button.setEnabled(canMoveFire);
+//                    // Проверяем, можно ли перемещать этот огонь
+//                    boolean canMoveFire = field.getLandscapeDecorators().stream()
+//                            .filter(d -> d.cell.equals(cell))
+//                            .findFirst()
+//                            .map(d -> d.landscapeElement instanceof Fire && ((Fire)d.landscapeElement).canMove(d.cell))//cell
+//                            .orElse(true);
+//                    if(!canMoveFire) button.setBackground(Color.CYAN);
+//                    button.setEnabled(canMoveFire);
 
                     break;
                 case "flowerbed":
                     button.setBackground(Color.PINK);
                     button.setEnabled(false); // Нельзя перемещать
-
-                    // Проверяем состояние клумбы
-                    field.getLandscapeDecorators().stream()
-                            .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof FlowerBed)
-                            .findFirst()
-                            .ifPresent(d -> {
-                                FlowerBed flowerBed = (FlowerBed) d.landscapeElement;
-                                if (!flowerBed.isWatered()) {
-                                    // Визуальный индикатор недостатка воды
-                                    button.setBackground(new Color(255, 182, 150)); // Бледно-розовый
-                                }
-                                if (!flowerBed.isAlive()) {
-                                    button.setBackground(Color.GRAY); // Мертвая клумба
-                                    button.setEnabled(true);
-                                }
-                            });
+//
+//                    // Проверяем состояние клумбы
+//                    field.getLandscapeDecorators().stream()
+//                            .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof FlowerBed)
+//                            .findFirst()
+//                            .ifPresent(d -> {
+//                                FlowerBed flowerBed = (FlowerBed) d.landscapeElement;
+//                                if (!flowerBed.isWatered()) {
+//                                    // Визуальный индикатор недостатка воды
+//                                    button.setBackground(new Color(255, 182, 150)); // Бледно-розовый
+//                                }
+//                                if (!flowerBed.isAlive()) {
+//                                    button.setBackground(Color.GRAY); // Мертвая клумба
+//                                    button.setEnabled(true);
+//                                }
+//                            });
                     break;
                 case "grass":
                     button.setBackground(Color.GREEN);

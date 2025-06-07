@@ -13,9 +13,7 @@ public class Fire implements ILandscapeElement {
         this.moveCount = currentMoves;
         this.maxMoves = 3;
     }
-
     public Fire copy() { return new Fire(this.moveCount); }
-
     @Override
     public boolean canMove(Cell cell) { return moveCount < maxMoves; }
     @Override
@@ -43,5 +41,11 @@ public class Fire implements ILandscapeElement {
         }
     }
 
+    @Override public void onMove() {incrementMoveCount();}
+
     public int getMoveCount() { return moveCount; }
+
+    @Override public ILandscapeElement copyState() {
+        return new Fire(this.moveCount);
+    }
 }

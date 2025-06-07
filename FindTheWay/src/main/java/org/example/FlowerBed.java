@@ -52,6 +52,8 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
         cell.setLandscapeType("grass");
     }
 
+    @Override public void onMove() {}
+
     @Override
     public boolean shouldRemoveAfterTransform() {
         return false;
@@ -87,6 +89,10 @@ public class FlowerBed implements ILandscapeElement, IWaterable {
 
     public boolean isAlive() {
         return isAlive;
+    }
+
+    @Override public ILandscapeElement copyState() {
+        return null;
     }
 
     public int getTurnsWithoutWater() {

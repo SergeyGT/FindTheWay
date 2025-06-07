@@ -1,10 +1,11 @@
 package org.example;
 
+import Factories.LandscapeElementFactory;
 import Interfaces.ILandscapeElement;
 import java.util.List;
 
 public class LandscapeCellDecorator {
-    public final Cell cell;
+    public Cell cell;
     public ILandscapeElement landscapeElement;
 
     public LandscapeCellDecorator(Cell cell, ILandscapeElement element) {
@@ -24,20 +25,17 @@ public class LandscapeCellDecorator {
         }
     }
 
-//
-//    public boolean canMove() {
-//        if (landscapeElement == null) return true;
-//        return landscapeElement.canMove(cell);
-//    }
-//
-//    public boolean canRotate() {
-//        if (landscapeElement == null) return true;
-//        return landscapeElement.canRotate(cell);
-//    }
-//
-//    public boolean canRemove() {
-//        if (landscapeElement == null) return true;
-//        return landscapeElement.canRemove(cell);
-//    }
+    public void handleCellMove(Cell newCell, LandscapeElementFactory factory) {
+        if (newCell.getLandscapeType() == null) {
+            this.landscapeElement = null;
+            return;
+        }
+
+        this.landscapeElement = (this.landscapeElement != null)
+                ? this.landscapeElement.copyState()
+                : factory.create(newCell.getLandscapeType());
+
+        this.cell = newCell;
+    }
 
 }

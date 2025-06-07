@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ILandscapeElement {
     boolean canMove(Cell cell);
+    void onMove();
     boolean canRotate(Cell cell);
     boolean canRemove(Cell cell);
     void update(Cell cell, List<LandscapeCellDecorator> allDecorators);
@@ -14,4 +15,5 @@ public interface ILandscapeElement {
     void transform(Cell cell);
     boolean shouldRemoveAfterTransform();
     void checkWatering(List<LandscapeCellDecorator> allDecorators, Cell cell);
+    ILandscapeElement copyState();
 }

@@ -13,4 +13,8 @@ public class BurntFire implements ILandscapeElement {
     @Override public void transform(Cell cell) {}
     @Override public boolean shouldRemoveAfterTransform() { return false; }
     @Override public void checkWatering(List<LandscapeCellDecorator> allDecorators, Cell cell) {}
+    @Override public void onMove() {}
+    @Override public ILandscapeElement copyState() {
+        return null;
+    }
 }

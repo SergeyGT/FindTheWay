@@ -66,6 +66,11 @@ public class Tree implements ILandscapeElement, IFlammable {
         return true;
     }
 
+    @Override public void onMove() {}
+    @Override public ILandscapeElement copyState() {
+        return null;
+    }
+
     @Override
     public void checkWatering(List<LandscapeCellDecorator> allDecorators, Cell cell) {}
 }

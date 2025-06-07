@@ -45,6 +45,10 @@ public class WildGrassRoad implements ILandscapeElement {
         return true;
     }
 
+    @Override public ILandscapeElement copyState() {
+        return null;
+    }
+
     @Override
     public void checkWatering(List<LandscapeCellDecorator> allDecorators, Cell cell) {}
 
@@ -63,4 +67,5 @@ public class WildGrassRoad implements ILandscapeElement {
     public void resetTurnsNearRoad() {
         currentTurnsNearRoad = 0;
     }
+    @Override public void onMove() {}
 }

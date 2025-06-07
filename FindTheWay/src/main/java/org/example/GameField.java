@@ -1,6 +1,7 @@
 package org.example;
 
 import Factories.CellFactory;
+import Factories.LandscapeElementFactory;
 import Interfaces.IFlammable;
 import Interfaces.IGameFieldListener;
 import Interfaces.ILandscapeElement;
@@ -11,6 +12,8 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 import static java.util.Collections.shuffle;
 
 @Getter
@@ -48,7 +51,7 @@ public class GameField {
         for (List<Cell> row : _cells) {
             for (Cell cell : row) {
                 if (!cell.getIsEmpty() && cell.getLandscapeType() != null) {
-                    ILandscapeElement element = createLandscapeElement(cell.getLandscapeType());
+                    ILandscapeElement element = LandscapeElementFactory.create(cell.getLandscapeType());
                     if (element != null) {
                         landscapeDecorators.add(new LandscapeCellDecorator(cell, element));
                     }
@@ -56,33 +59,14 @@ public class GameField {
             }
         }
     }
-    /////------------------------------------------------------------------////////////////////////
-
-    private ILandscapeElement createLandscapeElement(String landscapeType) {
-        if (landscapeType == null) return null;
-
-        switch (landscapeType.toLowerCase()) {
-            case "tree": return new Tree();
-            case "fire": return new Fire();
-            case "flowerbed": return new FlowerBed();
-            case "grass": return new WildGrass();
-            case "water": return new WaterElement();
-            case "burnt": return new BurntFire();
-            case "grassroad": return new WildGrassRoad();
-            default: return null;
-        }
-    }
-    /////------------------------------------------------------------------////////////////////////
 
     public void updateLandscapeElements() {
         List<LandscapeCellDecorator> toRemove = new ArrayList<>();
 
-        // Сначала обновляем все элементы
         for (LandscapeCellDecorator decorator : landscapeDecorators) {
             decorator.update(landscapeDecorators);
         }
 
-        // Затем обрабатываем трансформации
         for (LandscapeCellDecorator decorator : landscapeDecorators) {
             if (decorator.landscapeElement != null &&
                     decorator.landscapeElement.shouldTransform()) {
@@ -103,14 +87,11 @@ public class GameField {
         Cell emptyCell = getEmptyCell();
         if (emptyCell == null || !isAdjacent(cell, emptyCell)) return;
 
-        /////------------------------------------------------------------------////////////////////////
-        // Если перемещаем огонь, увеличиваем его счетчик
-        landscapeDecorators.stream()
-                .filter(d -> d.cell.equals(cell) && d.landscapeElement instanceof Fire)
-                .findFirst()
-                .ifPresent(decorator -> ((Fire) decorator.landscapeElement).incrementMoveCount());
-
-        /////------------------------------------------------------------------////////////////////////
+        getDecoratorForCell(cell).ifPresent(decorator -> {
+            if (decorator.landscapeElement != null) {
+                decorator.landscapeElement.onMove();
+            }
+        });
 
         Cell newEmptyCell = new Cell(
                 cell.getPosition()[0],
@@ -137,30 +118,19 @@ public class GameField {
     }
 
     private void updateDecoratorsAfterMove(Cell oldCell, Cell newCell) {
-        LandscapeCellDecorator oldDecorator = landscapeDecorators.stream()
-                .filter(d -> d.cell.equals(oldCell))
-                .findFirst()
-                .orElse(null);
-
+        LandscapeCellDecorator decorator = getDecoratorForCell(oldCell).orElse(null);
         landscapeDecorators.removeIf(d -> d.cell.equals(oldCell));
 
-        /////------------------------------------------------------------------////////////////////////
-        if (newCell.getLandscapeType() != null) {
-            ILandscapeElement element = null;
-
-            if (newCell.getLandscapeType().equalsIgnoreCase("fire") &&
-                    oldDecorator != null &&
-                    oldDecorator.landscapeElement instanceof Fire) {
-                element = ((Fire) oldDecorator.landscapeElement).copy();
-            } else {
-                element = createLandscapeElement(newCell.getLandscapeType());
-            }
-
-            if (element != null) {
-                landscapeDecorators.add(new LandscapeCellDecorator(newCell, element));
-            }
+        LandscapeElementFactory elementFactory = new LandscapeElementFactory();
+        if (decorator != null) {
+            decorator.handleCellMove(newCell,elementFactory);
+            landscapeDecorators.add(decorator);
+        } else if (newCell.getLandscapeType() != null) {
+            landscapeDecorators.add(new LandscapeCellDecorator(
+                    newCell,
+                    elementFactory.create(newCell.getLandscapeType())
+            ));
         }
-        /////------------------------------------------------------------------////////////////////////
     }
 
     public boolean isAdjacent(Cell a, Cell b) {
@@ -180,6 +150,12 @@ public class GameField {
 
     public List<List<Cell>> getСells() {
         return this._cells;
+    }
+
+    private Optional<LandscapeCellDecorator> getDecoratorForCell(Cell cell) {
+        return landscapeDecorators.stream()
+                .filter(d -> d.cell.equals(cell))
+                .findFirst();
     }
 
     public void AddSubscribers(IGameFieldListener subscriber) {

@@ -22,4 +22,8 @@ public class WaterElement implements ILandscapeElement, IWaterSource {
     public boolean shouldRemoveAfterTransform() { return false; }
     @Override
     public void checkWatering(List<LandscapeCellDecorator> allDecorators, Cell cell) {}
+    @Override public void onMove() {}
+    @Override public ILandscapeElement copyState() {
+        return null;
+    }
 }

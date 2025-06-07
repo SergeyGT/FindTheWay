@@ -62,22 +62,22 @@ public class GameWindow extends JFrame {
 //                return;
 //            }
             // Дополнительная проверка для огня
-            if (cell.getLandscapeType() != null && cell.getLandscapeType().equalsIgnoreCase("fire")) {
-                // Получаем декоратор для этой клетки
-                LandscapeCellDecorator decorator = field.getLandscapeDecorators().stream()
-                        .filter(d -> d.cell.equals(cell))
-                        .findFirst()
-                        .orElse(null);
-
-                if (decorator != null && decorator.landscapeElement instanceof Fire) {
-                    Fire fire = (Fire) decorator.landscapeElement;
-                    if (!fire.canMove(decorator.cell)) //cell
-                    {
-                        JOptionPane.showMessageDialog(this, "Этот огонь уже гаснет и не может быть перемещен!");
-                        return;
-                    }
-                }
-            }
+//            if (cell.getLandscapeType() != null && cell.getLandscapeType().equalsIgnoreCase("fire")) {
+//                // Получаем декоратор для этой клетки
+//                LandscapeCellDecorator decorator = field.getLandscapeDecorators().stream()
+//                        .filter(d -> d.cell.equals(cell))
+//                        .findFirst()
+//                        .orElse(null);
+//
+//                if (decorator != null && decorator.landscapeElement instanceof Fire) {
+//                    Fire fire = (Fire) decorator.landscapeElement;
+//                    if (!fire.canMove(decorator.cell)) //cell
+//                    {
+//                        JOptionPane.showMessageDialog(this, "Этот огонь уже гаснет и не может быть перемещен!");
+//                        return;
+//                    }
+//                }
+//            }
 
             field.MoveCell(cell);
             movesCount++;
